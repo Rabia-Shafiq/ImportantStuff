@@ -1,0 +1,252 @@
+<object-stream>
+  <FrequentItemSets id="1">
+    <numberOfTransactions>17110</numberOfTransactions>
+    <maximumSetSize>4</maximumSetSize>
+    <frequentSets id="2">
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="3">
+        <items id="4">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem id="5">
+            <frequency>17046</frequency>
+            <name>DISTRICT = Malakand P/A</name>
+          </com.rapidminer.operator.learner.associations.BooleanAttributeItem>
+        </items>
+        <frequency>17046</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="6">
+        <items id="7">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem id="8">
+            <frequency>16866</frequency>
+            <name>ORGAN = TESTIS</name>
+          </com.rapidminer.operator.learner.associations.BooleanAttributeItem>
+        </items>
+        <frequency>16866</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="9">
+        <items id="10">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem id="11">
+            <frequency>5580</frequency>
+            <name>DISTRICT = Lahore</name>
+          </com.rapidminer.operator.learner.associations.BooleanAttributeItem>
+        </items>
+        <frequency>5580</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="12">
+        <items id="13">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem id="14">
+            <frequency>3793</frequency>
+            <name>ORGAN = BREAST</name>
+          </com.rapidminer.operator.learner.associations.BooleanAttributeItem>
+        </items>
+        <frequency>3793</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="15">
+        <items id="16">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem id="17">
+            <frequency>1324</frequency>
+            <name>ORGAN = LYMPH NODES</name>
+          </com.rapidminer.operator.learner.associations.BooleanAttributeItem>
+        </items>
+        <frequency>1324</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="18">
+        <items id="19">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem id="20">
+            <frequency>1112</frequency>
+            <name>ORGAN = LIVER AND INTRAHEPATIC BILE DUCTS</name>
+          </com.rapidminer.operator.learner.associations.BooleanAttributeItem>
+        </items>
+        <frequency>1112</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="21">
+        <items id="22">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem id="23">
+            <frequency>1056</frequency>
+            <name>ORGAN = HEMATOPOIETIC AND RETICULOENDOTHELIAL SYSTEMS</name>
+          </com.rapidminer.operator.learner.associations.BooleanAttributeItem>
+        </items>
+        <frequency>1056</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="24">
+        <items id="25">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem id="26">
+            <frequency>939</frequency>
+            <name>DISTRICT = Gujranwala</name>
+          </com.rapidminer.operator.learner.associations.BooleanAttributeItem>
+        </items>
+        <frequency>939</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="27">
+        <items id="28">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+        </items>
+        <frequency>16804</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="29">
+        <items id="30">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="11"/>
+        </items>
+        <frequency>5580</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="31">
+        <items id="32">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="14"/>
+        </items>
+        <frequency>3784</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="33">
+        <items id="34">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="17"/>
+        </items>
+        <frequency>1316</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="35">
+        <items id="36">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="20"/>
+        </items>
+        <frequency>1110</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="37">
+        <items id="38">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="23"/>
+        </items>
+        <frequency>1054</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="39">
+        <items id="40">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="26"/>
+        </items>
+        <frequency>939</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="41">
+        <items id="42">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="11"/>
+        </items>
+        <frequency>5521</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="43">
+        <items id="44">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="14"/>
+        </items>
+        <frequency>3793</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="45">
+        <items id="46">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="17"/>
+        </items>
+        <frequency>1324</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="47">
+        <items id="48">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="20"/>
+        </items>
+        <frequency>1112</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="49">
+        <items id="50">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="23"/>
+        </items>
+        <frequency>1056</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="51">
+        <items id="52">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="26"/>
+        </items>
+        <frequency>923</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="53">
+        <items id="54">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="11"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="14"/>
+        </items>
+        <frequency>1499</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="55">
+        <items id="56">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="11"/>
+        </items>
+        <frequency>5521</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="57">
+        <items id="58">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="14"/>
+        </items>
+        <frequency>3784</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="59">
+        <items id="60">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="17"/>
+        </items>
+        <frequency>1316</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="61">
+        <items id="62">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="20"/>
+        </items>
+        <frequency>1110</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="63">
+        <items id="64">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="23"/>
+        </items>
+        <frequency>1054</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="65">
+        <items id="66">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="26"/>
+        </items>
+        <frequency>923</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="67">
+        <items id="68">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="11"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="14"/>
+        </items>
+        <frequency>1499</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="69">
+        <items id="70">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="11"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="14"/>
+        </items>
+        <frequency>1499</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+      <com.rapidminer.operator.learner.associations.FrequentItemSet id="71">
+        <items id="72">
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="5"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="8"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="11"/>
+          <com.rapidminer.operator.learner.associations.BooleanAttributeItem reference="14"/>
+        </items>
+        <frequency>1499</frequency>
+      </com.rapidminer.operator.learner.associations.FrequentItemSet>
+    </frequentSets>
+    <source>FPGrowth</source>
+  </FrequentItemSets>
+</object-stream>

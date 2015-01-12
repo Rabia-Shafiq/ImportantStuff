@@ -1,0 +1,599 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Untitled Document</title>
+<meta revision="1.4.0">
+<link rel="stylesheet" type="text/css" href="videolinks_data/plugin1_10.css">
+<style type="text/css"> body{background-color:transparent}</style>
+<script type="text/javascript">
+//<![CDATA[
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+//]]>
+</script><script src="videolinks_data/ga.js" type="text/javascript"></script>
+</head><body onload="javascript:OnLoad();" onkeypress="OnKeyPress(event)">
+
+<script language="javascript">
+
+    // global list of thumbs
+    var gl_arrayVids = null;
+    // max tries to parse XML for IE
+    var gl_nMaxTries = 0;
+    var gl_nNumImagesShown = 20;
+    // timer for fallback load
+    var gl_timerFallback = null;
+    var gl_timerShowEmptyPage = null;
+
+    // show divs
+    function OnLoad()
+    {
+        try
+        {
+            var imgs = document.getElementsByTagName("img");
+            for(var i=0, z=imgs.length; i<gl_nNumImagesShown && i<z; i++)
+            {
+                var thisImg = imgs[i];
+                if(thisImg.getAttribute("_src"))
+                    thisImg.src = thisImg.getAttribute("_src");
+            }
+        }
+        catch(e)
+        {
+            //alert(e.message);
+        }
+    }
+
+    function UpdateImages()
+    {
+        try
+        {
+            gl_nNumImagesShown += 10;
+            var imgs = document.getElementsByTagName("img");
+            for(var i=0, z=imgs.length; i<gl_nNumImagesShown && i<z; i++)
+            {
+                var thisImg = imgs[i];
+                if(thisImg.getAttribute("_src"))
+                    thisImg.src = thisImg.getAttribute("_src");
+            }
+        }
+        catch(e)
+        {
+            //alert(e.message);
+        }
+    }
+
+    function ShowEmptyResults()
+    {
+        try
+        {
+            if(gl_timerShowEmptyPage)
+            {
+                clearTimeout(gl_timerShowEmptyPage);
+                gl_timerShowEmptyPage = null;
+            }
+            var objPanel = document.getElementById("relatedPanel");
+            if(objPanel)
+            {
+                var mytext = document.createElement("DIV");
+                mytext.innerHTML = "<p style='padding:0; margin:0; padding-top:23px;'><img style='margin-bottom:-3px;' src='http://www.veoh.com/vvc/images/help_bu.gif'></img>&nbsp;No recommended video results found...</p>";
+                mytext.style.textAlign = 'center';
+                mytext.style.font = 'normal 13px Verdana, sans-serif';
+                objPanel.appendChild(mytext);
+            }
+            // show recs
+            ShowObjects(0);
+        }
+        catch(e)
+        {
+        alert(e.message);
+        }
+    }
+
+    // decode html entities
+    function html_entity_decode(str)
+    {
+        try
+        {
+            var ta = document.createElement("textarea");
+            ta.innerHTML=str.replace(/</g,"&lt;").replace(/>/g,"&gt;");
+            toReturn = ta.value;
+            ta = null;
+            return toReturn;
+        }
+        catch(e)
+        {
+            return "";
+        }
+    }
+
+    // convert string to html entities
+    function htmlEntities(str)
+    {
+        try
+        {
+            var i =0, output = '', len=0, char1 = '';
+            len = str.length;
+            for(i=0;i<len;i++)
+            {
+                char1 = str.charCodeAt(i);
+                if( (char1>47 && char1<58)||(char1>62 && char1<127) )
+                {
+                    output += str.charAt(i);
+                }
+                else
+                {
+                    output += "&#" + str.charCodeAt(i) + ";";
+                }
+            }
+            return output;
+        }
+        catch(e)
+        {
+            return "";
+        }
+    }
+
+    // convert time to string
+    function ConvertTimeToString(strSecs)
+    {
+        try
+        {
+            var nMins = Math.floor(strSecs / 60);
+            var nSecs = Math.abs(strSecs - (nMins * 60));
+            var strTime = nMins + ' min ' + nSecs + ' sec';
+            return strTime;
+        }
+        catch(e)
+        {
+            return "";
+        }
+    }
+
+    // load fallback xml
+    function LoadFallbackXML()
+    {
+        try
+        {
+            // clear timeout if set
+            if(gl_timerFallback)
+            {
+                clearTimeout(gl_timerFallback);
+                gl_timerFallback = null;
+            }
+
+            var maxTitleLen = 26;
+            var maxDescLen = 32;
+
+            var bFound = false;
+            var obj = document.getElementById("BF4C0C4D-1219-409d-886F-436D68306B7B");
+            if(obj)
+            {
+                var strXml = obj.getAttribute('result');
+                if(strXml != null)
+                {
+                    bFound = true;
+                    // load videos xml
+                    strXml = html_entity_decode(strXml);
+                    var parserVids = new DOMParser();
+                    var objXmlVids = parserVids.parseFromString(strXml, "text/xml");
+                    obj.setAttribute('result','');
+                
+                    var sourceType = obj.getAttribute('sourceType');
+                    var rankStart = obj.getAttribute('rankStart');
+
+                    // array of all found videos
+                    gl_arrayVids = new Array();
+                    var rootItems;
+                    var items;
+                    // move to root items array
+                    rootItems = objXmlVids.getElementsByTagName("entry");
+                    // parse all root items
+                    if(rootItems == null)
+                        return;
+                    for (var i = 0; i < rootItems.length; ++i)
+                    {
+                        try
+                        {
+                            // create new object and initialize
+                            var objVideo = new Object();
+                            objVideo.title = "";
+                            objVideo.thumb = "";
+                            objVideo.description = "";
+                            objVideo.flashurl = "";
+                            objVideo.duration = "";
+                            objVideo.id = "";
+
+                            // get title
+                            items = rootItems[i].getElementsByTagName("title");
+                            if(items && items[0].childNodes[0])
+                            {
+                                strItem = items[0].childNodes[0].nodeValue;
+                                // truncate title
+                                if(strItem.length > maxTitleLen)
+                                    strItem = strItem.substr(0,maxTitleLen) + '...';
+                                strItem = strItem.replace('"','');
+                                strItem = strItem.replace("'","");
+                                objVideo.title = strItem;
+                            }
+
+                            // get thumb
+                            items = rootItems[i].getElementsByTagName("media:thumbnail");
+                            if(items)
+                            {
+                                strItem = items[0].getAttribute("url");
+                                objVideo.thumb = strItem;
+                            }
+
+                            // get description
+                            items = rootItems[i].getElementsByTagName("media:description");
+                            if(items && items[0].childNodes[0])
+                            {
+                                strItem = items[0].childNodes[0].nodeValue;
+                                // truncate description
+                                if(strItem.length > maxDescLen)
+                                    strItem = strItem.substr(0,maxDescLen) + '...';
+                                strItem = strItem.replace('"','');
+                                strItem = strItem.replace("'","");
+                                objVideo.description = strItem;
+                            }
+
+                            // get Flash url
+                            items = rootItems[i].getElementsByTagName("content");
+                            if(items)
+                            {
+                                strItem = items[0].getAttribute("src");
+                                objVideo.flashurl = strItem;
+                            }
+
+                            // get duration
+                            items = rootItems[i].getElementsByTagName("yt:duration");
+                            if(items)
+                            {
+                                strItem = items[0].getAttribute("seconds");
+                                objVideo.duration = ConvertTimeToString(strItem);
+                            }
+
+                            // get id
+                            items = rootItems[i].getElementsByTagName("yt:videoid");
+                            if(items && items[0].childNodes[0])
+                            {
+                                strItem = items[0].childNodes[0].nodeValue;
+                                objVideo.id = strItem;
+                            }
+                            gl_arrayVids.push(objVideo);
+                        }
+                        catch(ef)
+                        {
+                        }
+                    }
+
+                    // only show if we have found videos
+                    if(gl_arrayVids.length > 0)
+                    {
+                        // should use timer to verify this exists
+                        var objCarousel = document.getElementById("scroller_parent");
+                        var strHtml = "<ul id='video-carousel' class='video-carousel jcarousel-skin-video'>"
+                        var strVeohQ2V = objCarousel.innerHTML;
+
+                        // replace title2 with title to get tooltips on all thumbs
+                        strVeohQ2V = strVeohQ2V.replace(/title2=/g,'title=');
+                        strVeohQ2V = strVeohQ2V.replace(/CompassTemp.video/g,'video');
+                        strHtml += strVeohQ2V;
+
+                        for(var n=0;n<gl_arrayVids.length;n++)
+                        {
+                            var rank = n + 1 + parseInt(rankStart);
+                            var strSearchEsc = escape("matlab for image processing");
+                            var strTitle = escape(gl_arrayVids[n].title);
+                            var strNew = "<li class='vd_thumbs'><div class='related_th' style='border: none;'><a href='#' style='color: #606060; text-decoration:none;' onclick='changeVideoUrlFallback(";
+                            strNew += "&#39;" + strTitle + "&#39;" + ',' + "&#39;" + gl_arrayVids[n].id + "&#39;" + ',' + "&#39;" + gl_arrayVids[n].flashurl + "&#39;" + ',' + "&#39;" + strSearchEsc + "&#39;" + ',' + rank + ',' + "&#39;" + sourceType + "&#39;";
+                            strNew += ");'>";
+                            strNew += "<span class='video' title='";
+                            strNew += htmlEntities(gl_arrayVids[n].title);
+                            strNew += " -- ";
+                            strNew += htmlEntities(gl_arrayVids[n].description);
+                            strNew += "<br>";
+                            strNew += gl_arrayVids[n].duration;
+                            strNew += "'><img src='";
+                            strNew += gl_arrayVids[n].thumb;
+                            strNew += "' style='width:110px; border: none; height: 64px;'/></span></a></div></li>";
+                            strHtml += strNew;
+
+                        }
+                        strHtml += "</ul>";
+                        objCarousel.style.width = '';
+                        objCarousel.innerHTML = strHtml;
+
+                        // kill timer to show empty results
+                        if(gl_timerShowEmptyPage)
+                        {
+                            clearTimeout(gl_timerShowEmptyPage);
+                            gl_timerShowEmptyPage = null;
+                        }
+                        //remove pre element to avoid reloading fallback xml on plays
+                        var objRemove = document.getElementById('BF4C0C4D-1219-409d-886F-436D68306B7B'); objRemove.parentNode.removeChild(objRemove);
+
+                        // initialize video scroller
+                        jQuery('.video-carousel').jcarousel({
+                            scroll: 1,
+                            itemLoadCallback:  video_itemLoadCallback
+                        });
+
+                        // initialize tooltips
+                        $('.video').tooltip({
+                            track: true,
+                            delay: 0,
+                            fade: 100,
+                            showURL: false,
+                            showBody: " -- ",
+                            extraClass: "video",
+                            fixPNG: true,
+                            top:-35,
+                            left: 20
+                        });
+
+                        // show recs
+                        var nResults = gl_arrayVids.length;
+                        if(rankStart)
+                            nResults += parseInt(rankStart);
+                        ShowObjects(nResults);
+
+                        // log results
+                        var keys = new Array('recommendationId','recRequestId','type','offset','numHits','numResults','source','affiliateId','compassId');
+                        var values = new Array('','fe94891a4b9bdf0b7da98cf23a179c0b','video',0,gl_arrayVids.length,gl_arrayVids.length,'VVC-YouTubeQ2V','veoh.com','c8e41d65a-9216-9667-6a71-ed05286d948');
+                        Metrics.logEvent('/recommendation',keys, values);
+
+                        // make site catalyst call
+                        trackSCPageView();
+                    }
+                }
+            }
+            if(bFound == false)
+            {
+                if(gl_timerFallback)
+                {
+                    clearTimeout(gl_timerFallback);
+                    gl_timerFallback = null;
+                }
+                gl_timerFallback = setTimeout('LoadFallbackXML()',100);
+            }
+        }
+        catch(e)
+        {
+        }
+    }
+
+    // close video on esc key press
+    function OnKeyPress(evt)
+    {
+        try
+        {
+            var kC  = (window.event) ?    // MSIE or Firefox?
+                event.keyCode : evt.keyCode;
+            var Esc = (window.event) ?
+                27 : evt.DOM_VK_ESCAPE // MSIE : Firefox
+            if(kC==Esc)
+            {
+                var strCmd = "m_objCurrentDocument.getElementById('overlay_vlb').style.display = 'none';";
+                strCmd += " m_objCurrentDocument.getElementById('overlay_vlb2').style.display = 'none';";
+                strCmd += " m_objCurrentDocument.getElementById('videownd_vep_main').style.display = 'none';";
+                window.top.location.hash = '#809189D2-7517-4af1-BAF0-1A36C3BB8640' + '&command=' + encodeURIComponent(strCmd);
+            }
+        }
+        catch(e)
+        {
+        }
+    }
+
+    // show div objects
+    function ShowObjects(iNumVideos)
+    {
+        try
+        {
+            var strCmd = " m_objCurrentDocument.getElementById('veohrecs_fr').style.height = '107px';";
+            strCmd += " m_objCurrentDocument.getElementById('Veoh_SpaceDiv').style.height = '12px';";
+            strCmd += "";
+            strCmd += " m_objCurrentDocument.getElementById('VeohCompass.LoadingDiv').style.height = '0px';";
+            strCmd += " m_objCurrentDocument.getElementById('VeohCompass.LoadingDiv').style.display = 'none';";
+            window.top.location.hash = '#809189D2-7517-4af1-BAF0-1A36C3BB8640' + '&numResults=' + iNumVideos + '&command=' + encodeURIComponent(strCmd);
+        }
+        catch(e)
+        {
+            //alert(e.message);
+        }
+    }
+
+    // format elements in page for compass display
+    function FormatPage()
+    {
+
+    }
+    </script>
+<div id="veohlinks">
+                        <div class="veoh_logo"><a href="#" onclick="changeUrl('http://www.veoh.com')"><img src="videolinks_data/veoh_chrome_logo.jpg" alt="Veoh"></a></div>
+                        <div id="related_mask">
+                        <ul id="related_ul">
+                        <li class="related">&nbsp;</li>
+                        </ul></div></div><div id="relatedPanel">
+        <div class="clear"></div>
+
+        <!-- start videos -->
+        <div style="width: 100%; margin-top: 8px;">
+    <pre id="BF4C0C4D-1219-409d-886F-436D68306B7B" sourcetype="VVC-YouTubeQ2V" style="display: none;" value="matlab for image processing"></pre>
+                        <div id="scroller_parent"></div>
+    </div>
+    <div style="text-align: center; font-family: Verdana,sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 13px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none;"><p style="margin: 0pt; padding: 23px 0pt 0pt;"><img style="margin-bottom: -3px;" src="videolinks_data/help_bu.gif">&nbsp;No recommended video results found...</p></div></div>
+<script>
+
+// called by plugin to load xml
+var LoadThumbs = new function()
+{
+    try
+    {
+        var bCanAddYouTube = true;
+        if(gl_timerShowEmptyPage)
+        {
+            clearTimeout(gl_timerShowEmptyPage);
+            gl_timerShowEmptyPage = null;
+        }
+        if(bCanAddYouTube)
+        {
+            gl_timerShowEmptyPage = setTimeout('ShowEmptyResults()',7000);
+            LoadFallbackXML();
+        }
+    }
+    catch(e)
+    {
+        //alert(e.message);
+    }
+}
+
+function changeUrl(strLocation)
+{
+    var strURL = strLocation.toString();
+
+    window.top.location.href = strURL;
+    
+}
+
+function changeVideoUrl2(strWidth, strHeight, parameters) {
+    try
+    {
+        var strWidthMain = strWidth;
+        var bIsWebPlayerInstalled = false;
+        var strP2PPort = '';
+        var strVWPVersion = '';
+        // pass web player installed params so we do not reload the flash player
+        if (VeohDetect.isVeohWebPlayerInstalled())
+        {
+            bIsWebPlayerInstalled = true;
+            strP2PPort = VeohDetect.getVeohWebPlayerPort();
+            strVWPVersion = VeohDetect.getVeohWebPlayerVersion();
+        }
+
+        var frameSrc = 'http://www.veoh.com/vvc/videoembed.php?';
+        // only include params if its installed
+        if(bIsWebPlayerInstalled)
+        {
+            frameSrc += 'VWPInstalled=' + bIsWebPlayerInstalled;
+            frameSrc += '&P2PPort=' + strP2PPort;
+            frameSrc += '&VWPVer=' + strVWPVersion;
+        }
+        frameSrc += '&recReqId=fe94891a4b9bdf0b7da98cf23a179c0b&affiliateId=veoh.com&compassId=c8e41d65a-9216-9667-6a71-ed05286d948&familyfilter=true';
+
+        for ( var param in parameters ) {
+            if ('string' === typeof param) {
+                frameSrc += '&' + param + '=' + parameters[param];
+            }
+        }
+    
+        var strCmd = "m_objCurrentDocument.getElementById('overlay_vlb').style.display = 'block';";
+        strCmd += "m_objCurrentDocument.getElementById('overlay_vlb').style.height = screen.height + 'px';";
+        strCmd += "m_objCurrentDocument.getElementById('overlay_vlb2').style.display = 'block';";
+        strCmd += "m_objCurrentDocument.getElementById('overlay_vlb2').style.height = screen.height + 'px';";
+        strCmd += " m_objCurrentDocument.getElementById('videownd_vep_main').style.display = 'block';";
+        strCmd += "m_objCurrentDocument.getElementById('videownd_vep').style.width = '" + strWidth + "px';";
+        strCmd += "m_objCurrentDocument.getElementById('videownd_vep').style.height = '" + strHeight + "px';";
+        strCmd += "m_objCurrentDocument.getElementById('videownd_vep_main').style.width = '" + strWidthMain + "px';";
+        strCmd += "m_objCurrentDocument.getElementById('videownd_vep_main').style.height = '" + strHeight + "px';";
+        strCmd += " m_objCurrentDocument.getElementById('videownd_vep').innerHTML = '";
+
+        strCmd += '<iframe id="veohplayer_fr" src ="' + frameSrc + '" allowtransparency="true" style="overflow:hidden; margin:auto; padding:0px; left: 0px; top: 0px; height: 100%; width: 100%;" scrolling="no" frameborder="0"></iframe>';
+        strCmd += "';";
+        window.top.location.hash = '#809189D2-7517-4af1-BAF0-1A36C3BB8640&command=' + encodeURIComponent(strCmd);
+    }
+    catch(e)
+    {
+        //alert(e.message);
+    }
+}
+
+function changeVideoUrl(strWidth, strHeight, strPermalink, strSearchTerm, rank, recsId, sourceType)
+{
+    changeVideoUrl2( strWidth, strHeight, {
+        fallback: 'false',
+        permalink: strPermalink,
+        search: strSearchTerm,
+        rank: rank,
+        recId: recsId,
+        source: sourceType
+    } );
+}
+
+// play video from fallback url
+function changeVideoUrlFallback(strTitle,strVideoId,strFlashUrl,strSearchTerm,rank,sourceType)
+{
+    changeVideoUrl2( '544', '530', {
+        fallback: 'true',
+        permalink: strVideoId,
+        search: strSearchTerm,
+        url: strFlashUrl,
+        rank: rank,
+        recId: '',
+        source: sourceType
+    } );
+}
+
+</script><script type="text/javascript" src="videolinks_data/ext.js"></script>
+<script type="text/javascript">
+    try
+    {
+        var pageTracker = _gat._getTracker("UA-6322564-1");
+        pageTracker._trackPageview();
+    }
+    catch(err)
+    {
+    }
+
+    $(document).ready(function()
+    {
+        FormatPage();
+    });
+
+function getCookie(c_name)
+{
+    if (document.cookie.length>0)
+    {
+        c_start=document.cookie.indexOf(c_name + "=");
+        if (c_start!=-1)
+        {
+            c_start=c_start + c_name.length+1;
+            c_end=document.cookie.indexOf(";",c_start);
+            if (c_end==-1)
+                c_end=document.cookie.length;
+            return unescape(document.cookie.substring(c_start,c_end));
+        }
+    }
+    return "";
+}
+try
+{
+    if( getCookie('veohCookie') == "" )
+        document.cookie = "\"VisitorUID=ecd0e696-9fd3-e161-5b27-b468cb22c546&LastUpdate=08/Feb/2010:12:40:01 -0800&first=0\"";
+}
+catch(e)
+{
+}
+</script>
+
+<div id="wpDetect" style="position: absolute; top: -999px; left: -999px;"></div>
+
+<script type="text/javascript">
+    // detect if web player installed for full length videos
+    try
+    {
+        if (VeohDetect.isVeohWebPlayerInstalled())
+        {
+            var wpDetect = document.getElementById('wpDetect')
+            if (wpDetect)
+                wpDetect.innerHTML = VeohDetect.getWebPlayerPluginHtml();
+        }
+    }
+    catch(e)
+    {
+    }
+</script>
+
+<div style="display: none;" id="tooltip"><h3></h3><div class="body"></div><div class="url"></div></div></body></html>

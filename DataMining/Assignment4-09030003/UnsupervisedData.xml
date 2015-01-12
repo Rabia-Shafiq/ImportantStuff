@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="windows-1256"?>
+<process version="4.6">
+
+  <operator name="Root" class="Process" expanded="yes">
+      <parameter key="logverbosity"	value="init"/>
+      <parameter key="random_seed"	value="2001"/>
+      <parameter key="send_mail"	value="never"/>
+      <parameter key="process_duration_for_mail"	value="30"/>
+      <parameter key="encoding"	value="SYSTEM"/>
+      <operator name="ExampleSource" class="ExampleSource">
+          <parameter key="attributes"	value="F:\RapidMiner\studentsKClusterPerformance"/>
+          <parameter key="sample_ratio"	value="1.0"/>
+          <parameter key="sample_size"	value="-1"/>
+          <parameter key="permutate"	value="false"/>
+          <parameter key="decimal_point_character"	value="."/>
+          <parameter key="column_separators"	value=",\s*|;\s*|\s+"/>
+          <parameter key="use_comment_characters"	value="true"/>
+          <parameter key="comment_chars"	value="#"/>
+          <parameter key="use_quotes"	value="true"/>
+          <parameter key="quote_character"	value="&quot;"/>
+          <parameter key="quoting_escape_character"	value="\"/>
+          <parameter key="trim_lines"	value="false"/>
+          <parameter key="skip_error_lines"	value="false"/>
+          <parameter key="datamanagement"	value="double_array"/>
+          <parameter key="local_random_seed"	value="-1"/>
+      </operator>
+      <operator name="MissingValueReplenishment" class="MissingValueReplenishment">
+          <parameter key="default"	value="average"/>
+          <list key="columns">
+          </list>
+      </operator>
+      <operator name="Nominal2Numerical" class="Nominal2Numerical">
+          <parameter key="return_preprocessing_model"	value="false"/>
+          <parameter key="create_view"	value="false"/>
+      </operator>
+      <operator name="KMeans" class="KMeans">
+          <parameter key="keep_example_set"	value="true"/>
+          <parameter key="add_cluster_attribute"	value="true"/>
+          <parameter key="k"	value="6"/>
+          <parameter key="max_runs"	value="10"/>
+          <parameter key="max_optimization_steps"	value="100"/>
+          <parameter key="use_local_random_seed"	value="false"/>
+          <parameter key="local_random_seed"	value="1992"/>
+      </operator>
+      <operator name="ClusterCentroidEvaluator" class="ClusterCentroidEvaluator" breakpoints="after">
+          <parameter key="keep_example_set"	value="true"/>
+          <parameter key="main_criterion"	value="Avg. within centroid distance"/>
+          <parameter key="main_criterion_only"	value="false"/>
+          <parameter key="normalize"	value="true"/>
+          <parameter key="maximize"	value="true"/>
+      </operator>
+      <operator name="ClusterDensityEvaluator" class="ClusterDensityEvaluator">
+          <parameter key="keep_cluster_model"	value="false"/>
+          <parameter key="keep_similarity_measure"	value="false"/>
+      </operator>
+      <operator name="ClusterNumberEvaluator" class="ClusterNumberEvaluator">
+          <parameter key="keep_cluster_model"	value="true"/>
+      </operator>
+  </operator>
+
+</process>

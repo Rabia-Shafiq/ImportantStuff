@@ -1,0 +1,561 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {margin:0; padding:0;}
+
+html, body {
+	text-align: left;
+}
+img {
+	border:none;
+}
+
+a:link {
+	color:#0957a3;
+	text-decoration:none;
+}
+a:hover{
+	text-decoration:underline;
+}
+a:visited {
+	color:#0957a3;
+	text-decoration:none;
+}
+
+/* Text */
+h1, h2, h3 {
+	font:normal 11px Verdana, sans-serif;
+	color:#323232;
+}
+h1.mn_hd {
+	float:left;
+	font-size:12px;
+	font-weight:bold;
+	margin:3px 0 0 0;
+}
+h2.show_more {
+	float: left;
+	color:#969696;
+	margin:10px 0 10px 15px;
+}
+h3.vd_title a{
+	color:#fff;
+}
+
+/* Containers */
+
+#veohlinks {
+	position: absolute;
+	padding: 5px 0px;
+	background: transparent url(images/compass_sprite.gif) repeat-x 0 -83px;
+	top: 0px;
+	left: 0px;
+	width:100%;
+	overflow:hidden;
+	white-space:nowrap;
+}
+
+#relatedPanel {
+	height:82px;
+	background: transparent url(images/compass_sprite.gif) repeat-x;
+	position: absolute;
+	top: 23px;
+	width:100%;
+	font: normal 13px Verdana, sans-serif;
+	color:#666666;
+}
+#videoPanel{
+	height:87px;
+	overflow:hidden;
+	position: absolute;
+	bottom: 0px;
+	background: #000 url(images/compass_sprite.gif) repeat-x 0 -108px;
+	width:100%;
+	font: normal 11px Verdana, sans-serif;
+	z-index:25;
+	color:#323232;
+}
+#takePanel{
+	height:0;
+	overflow:hidden;
+}
+
+.panel_foot {	
+	margin:122px 0 0 0;
+	height:13px;
+	/* background:url(images/panel_btm.jpg); commenting out, no references found */
+}
+
+.veoh_logo {
+	float:left;
+	margin-left:5px;
+	margin-right:5px;
+	margin-top:-5px;
+}
+
+.clear {
+	clear:both;
+}
+
+/* Lists */
+#related_mask {
+	overflow: hidden;
+	margin: 0px 90px 0px 70px;
+	position: relative;
+}
+#related_ul {
+	width: 18000px;
+	left: 0px;
+	top: -2px;
+	position: relative;
+}
+#related_prev_bu {
+	position:absolute;
+	top: 3px;
+	right:37px;
+}
+#related_next_bu {
+	position:absolute;
+	top: 3px;
+	right:15px;
+}
+li.related  {
+	margin: 0 30px 3px 0;
+	float: left;
+	padding-bottom: 5px;
+	list-style-type: none;
+	font:normal 12px Verdana, sans-serif;
+}
+ul.related_more   {
+	margin: 0 0 0 72px;
+	float: left;
+	clear:both;
+}
+li.related_more  {
+	margin: 3px 15px;
+	float: left;
+	list-style-type: none;
+	width:150px;
+	font:normal 12px Verdana, sans-serif;	
+}
+ul.vd_thumbs  {
+	list-style-type:none;
+	float: left;
+	margin:10px 0 0 60px;
+	overflow: hidden;
+}
+li.vd_thumbs  {
+	list-style-type:none;
+	margin:0 15px;
+	width:110px;
+	float:left;
+}
+
+/* Buttons */
+.close_bu {
+	position:absolute;
+	width:13px;
+	height:13px;
+	top:9px;
+	right:10px;
+}
+#related_bu {
+	position:absolute;
+	width:132px;
+	height:18px;
+	margin:0;
+	right:35px;
+	z-index:1001;
+}
+#close_vd_bu {
+	position:absolute;
+	width:128px;
+	height:18px;
+	top:7px;
+	right:35px;
+	display:none;
+	z-index:1001;
+}
+.hide_bu {
+	color:#e6e6e6; 
+	margin:5px 0 0 5px; 
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px; 
+	position:relative; 
+	top:5px;
+	width: 100%;
+}
+.hide_bu a {
+	color:#e6e6e6; 
+	text-decoration:none;
+}
+.show_bu {
+	color:#e6e6e6; 
+	margin:5px 0 0 5px; 
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px; 
+	position:relative; 
+	top:0px;
+	display: none;
+	width: 100%;
+}
+.show_bu a {
+	color:#e6e6e6; 
+	text-decoration:none;
+}
+li.prev_bu {
+	margin:3px 2px 3px 20px;
+}
+li.next_bu {
+	margin:3px 0;
+}
+#vd_prev_bu {
+	 margin:15px 10px 0 0;
+	 position:absolute;
+	 float:left;
+	 left:25px;
+}
+#vd_next_bu {
+	margin:15px 0 0 10px;
+	position:absolute;
+	float:right;
+	right:25px;
+}
+.vd_prev_bu_popup {
+	 margin:15px 5px 0 0;
+	 position:absolute;
+	 float:left;
+	 left:5px;
+}
+.vd_next_bu_popup {
+	margin:15px 0 0 5px;
+	position:absolute;
+	float:right;
+	right:5px;
+}
+.related_th a {
+ width:110px;
+ display:block;
+ border:1px solid #5f5b5c;
+}
+.related_th a:hover  { 
+ border:1px solid #fff;
+}
+#veoh_mask {
+	width: 90%;
+	overflow: hidden;
+	margin: auto;
+	position: relative;
+	
+}
+
+#veoh_ul {
+	width: 18000px;
+	left: 0px;
+	top: 0px;
+	position: relative;
+}
+#embed_mask {
+	height:55px;
+	overflow: hidden;
+	margin: auto;
+	position: relative;
+	
+}
+
+
+/* Tool Tips */
+
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 1px solid #111;
+	padding: 5px;
+	text-align:left;
+	font-family: Verdana, sans-serif;
+	font-size:11px;
+	
+}
+#tooltip h3, #tooltip div { margin: 0; }
+
+#tooltip.video {
+	border: none;
+	width: 286px;
+	height:49px;
+	padding:5px 5px 5px 22px;
+	opacity: 0.95;
+	background:transparent url(images/compass_sprite.gif) no-repeat 0px -195px;
+}
+#tooltip h3 {
+	margin-bottom: 2px;
+	font-size: 12px;
+	font-weight:bold; 
+	width: 220px;
+}
+#tooltip.video div { width: 220px; text-align: left; }
+#tooltip.video.viewport-right {
+	background:transparent url(images/compass_sprite.gif) no-repeat 0px -255px;
+	padding:5px 5px 5px 10px;
+}
+#tooltip.embed {
+	border: none;
+	width: 235px;
+	height:60px;
+	padding:5px 5px 5px 22px;
+	opacity: 0.95;
+	background:transparent url(images/tooltip_back_sm.gif) no-repeat;
+}
+#tooltip.embed.viewport-right {
+	background:transparent url(images/tooltip_back_sm_rt.gif) no-repeat;
+	padding:5px 5px 5px 10px;
+}
+
+/* Scroller */				
+
+
+/**
+ * This <div> element is wrapped by jCarousel around the list
+ * and has the classname "jcarousel-container".
+ */
+.jcarousel-container {
+    position: relative;
+}
+
+.jcarousel-clip {
+    z-index: 2;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.jcarousel-list {
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.jcarousel-list li,
+.jcarousel-item {
+    float: left;
+    list-style: none;
+    /* We set the width/height explicitly. No width/height causes infinite loops. */
+}
+
+/**
+ * The buttons are added dynamically by jCarousel before
+ * the <ul> list (inside the <div> described above) and
+ * have the classnames "jcarousel-next" and "jcarousel-prev".
+ */
+.jcarousel-next {
+    z-index: 3;
+    display: none;
+}
+
+.jcarousel-prev {
+    z-index: 3;
+    display: none;
+}
+
+/* Video Scroll */
+.jcarousel-skin-video .jcarousel-container {
+   margin-left:45px;
+}
+
+.jcarousel-skin-video .jcarousel-container-horizontal {
+    width: 96%;
+    padding: 0;
+}
+
+.jcarousel-skin-video .jcarousel-clip-horizontal {
+    width:  94%;
+    height: 75px;
+}
+
+.jcarousel-skin-video .jcarousel-item {
+    width: 110px;
+    height: 75px;
+}
+
+.jcarousel-skin-video .jcarousel-item-horizontal {
+    margin-right: 10px;
+}
+
+.jcarousel-skin-video .jcarousel-item-placeholder {
+    background: #fff;
+    color: #000;
+}
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-skin-video .jcarousel-next-horizontal {
+    position: absolute;
+	right:10px;
+	margin-top:-1;
+    width:  44px;
+    height: 67px;
+    cursor: pointer;
+	z-index:1000;
+    background: url(images/compass_sprite.gif) no-repeat -94px -314px;
+}
+
+.jcarousel-skin-video .jcarousel-next-disabled-horizontal {
+    cursor: default;
+    background: url(images/compass_sprite.gif) no-repeat -140px -314px;
+}
+
+.jcarousel-skin-video .jcarousel-prev-horizontal {
+    position: absolute;
+	float:left;
+	margin-top:-1;
+	margin-left:-35px;
+    width: 46px;
+    height: 67px;
+    cursor: pointer;
+	z-index:1000;
+    background: transparent url(images/compass_sprite.gif) no-repeat 0 -314px;
+}
+
+.jcarousel-skin-video .jcarousel-prev-disabled-horizontal{
+    cursor: default;
+    background: transparent url(images/compass_sprite.gif) no-repeat -46px -314px;
+}
+
+
+/* Related Terms Scroll */
+
+.jcarousel-skin-related .jcarousel-container {
+	position:absolute;
+	left:25px;
+	_left:20px;
+}
+
+.jcarousel-skin-related .jcarousel-container-horizontal {
+    width: 96%;
+    padding: 0;
+}
+
+.jcarousel-skin-related .jcarousel-clip-horizontal {
+    width:  90%;
+    height: 30px;
+	margin-left:50px;
+}
+
+.jcarousel-skin-related .jcarousel-item {
+	margin-top:-2px;
+	padding:0 5px;
+}
+
+.jcarousel-skin-related .jcarousel-item-horizontal {
+}
+
+.jcarousel-skin-related .jcarousel-item-placeholder {
+    background: #fff;
+    color: #000;
+}
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-skin-related .jcarousel-next-horizontal {
+    position: absolute;
+	right:-10px;
+	margin:-2px 0 0 0;
+    width:  20px;
+    height: 17px;
+    cursor: pointer;
+	z-index:1000;
+    background: url(images/compass_sprite.gif) no-repeat -225px -331px;
+}
+
+.jcarousel-skin-related .jcarousel-next-disabled-horizontal {
+    cursor: default;
+    background: url(images/compass_sprite.gif) no-repeat -246px -331px;
+}
+
+.jcarousel-skin-related .jcarousel-prev-horizontal {
+    position: absolute;
+	right:12px;
+	margin:-2px 0 0 0;
+    width: 20px;
+    height: 17px;
+    cursor: pointer;
+	z-index:1000;
+    background: transparent url(images/compass_sprite.gif) no-repeat -184px -331px;
+}
+
+.jcarousel-skin-related .jcarousel-prev-disabled-horizontal {
+    cursor: default;
+    background: transparent url(images/compass_sprite.gif) no-repeat -204px -331px;
+}
+
+
+/* Embed Scroll */
+
+.jcarousel-skin-embed .jcarousel-container {
+	margin-left:45px;
+}
+
+.jcarousel-skin-embed .jcarousel-container-horizontal {
+    width: 400px;
+    padding: 0;
+}
+
+.jcarousel-skin-embed .jcarousel-clip-horizontal {
+    width:  435px;
+    height: 55px;
+	margin-left:0;
+}
+
+.jcarousel-skin-embed .jcarousel-item {
+	margin-top:-2px;
+	padding:0 5px;
+}
+
+.jcarousel-skin-embed .jcarousel-item-horizontal {
+}
+
+.jcarousel-skin-embed .jcarousel-item-placeholder {
+    background: #fff;
+    color: #000;
+}
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-skin-embed .jcarousel-next-horizontal {
+    position: absolute;
+	right:-80px;
+	margin:16px 0 0 0;
+    width:  20px;
+    height: 17px;
+    cursor: pointer;
+	z-index:1000;
+    background: url(images/compass_sprite.gif) no-repeat -226px -314px;
+}
+
+.jcarousel-skin-embed .jcarousel-next-disabled-horizontal{
+   cursor: default;
+    background: url(images/compass_sprite.gif) no-repeat -246px -314px;
+}
+
+.jcarousel-skin-embed .jcarousel-prev-horizontal {
+    position: absolute;
+	left:-30px;
+	margin:16px 0 0 0;
+    width: 20px;
+    height: 17px;
+    cursor: pointer;
+	z-index:1000;
+    background: url(images/compass_sprite.gif) no-repeat -185px -314px;
+}
+
+.jcarousel-skin-embed .jcarousel-prev-disabled-horizontal {
+    cursor: default;
+    background: url(images/compass_sprite.gif) no-repeat -205px -314px;
+}

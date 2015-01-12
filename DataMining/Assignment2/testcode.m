@@ -1,0 +1,19 @@
+transactions = ijvmatrix(:,1);
+itemIDs = ijvmatrix(:, 2);
+for item = 1:100
+indexesForItem = find(item_ids == item);
+trans = transactions(indexesForItem);
+if ~isempty(trans)caTransactionsForItem{item} = trans;
+len=length(trans);
+for(col=1:len)
+    mat(item,col)=trans(col);
+message1 = sprintf('\nItem %d occurred in transaction(s):', item);
+            message2 = sprintf('%d, ', trans);
+message3=sprintf('\n size of transaction is %d',len);
+ fprintf(1, [message1, message2,message3]);
+end
+ end
+ end
+
+for(ct=1:100)
+    intersect(mat(ct), mat(ct++)) 

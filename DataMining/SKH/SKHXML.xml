@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="windows-1256"?>
+<process version="4.6">
+
+  <operator name="Root" class="Process" expanded="yes">
+      <parameter key="logverbosity"	value="init"/>
+      <parameter key="random_seed"	value="2001"/>
+      <parameter key="send_mail"	value="never"/>
+      <parameter key="process_duration_for_mail"	value="30"/>
+      <parameter key="encoding"	value="SYSTEM"/>
+      <operator name="ExcelExampleSource" class="ExcelExampleSource" breakpoints="after">
+          <parameter key="excel_file"	value="C:\Users\Home\Desktop\Jean\subset.xls"/>
+          <parameter key="sheet_number"	value="1"/>
+          <parameter key="row_offset"	value="0"/>
+          <parameter key="column_offset"	value="0"/>
+          <parameter key="first_row_as_names"	value="true"/>
+          <parameter key="create_label"	value="false"/>
+          <parameter key="label_column"	value="1"/>
+          <parameter key="create_id"	value="false"/>
+          <parameter key="id_column"	value="1"/>
+          <parameter key="decimal_point_character"	value="."/>
+          <parameter key="datamanagement"	value="double_array"/>
+      </operator>
+      <operator name="BinDiscretization" class="BinDiscretization">
+          <parameter key="return_preprocessing_model"	value="false"/>
+          <parameter key="create_view"	value="false"/>
+          <parameter key="number_of_bins"	value="5"/>
+          <parameter key="range_name_type"	value="long"/>
+          <parameter key="automatic_number_of_digits"	value="true"/>
+          <parameter key="number_of_digits"	value="-1"/>
+      </operator>
+      <operator name="ExampleFilter" class="ExampleFilter">
+          <parameter key="condition_class"	value="attribute_value_filter"/>
+          <parameter key="parameter_string"	value="OCCUPATION=UNKNOWN || OCCUPATION = No || ADDICTION1=Unknown || ADDICTION1=No ||  ADDICTION2 = &#39;N/A&#39; || ADDICTION3 = &#39;N/A&#39;  "/>
+          <parameter key="invert_filter"	value="true"/>
+      </operator>
+      <operator name="Numerical2Binominal" class="Numerical2Binominal">
+          <parameter key="min"	value="0.0"/>
+          <parameter key="max"	value="0.0"/>
+      </operator>
+      <operator name="Nominal2Binominal" class="Nominal2Binominal">
+          <parameter key="return_preprocessing_model"	value="false"/>
+          <parameter key="create_view"	value="false"/>
+          <parameter key="transform_binominal"	value="true"/>
+          <parameter key="use_underscore_in_name"	value="false"/>
+      </operator>
+      <operator name="FPGrowth" class="FPGrowth">
+          <parameter key="keep_example_set"	value="false"/>
+          <parameter key="find_min_number_of_itemsets"	value="false"/>
+          <parameter key="min_number_of_itemsets"	value="5"/>
+          <parameter key="min_support"	value="0.01"/>
+          <parameter key="max_items"	value="-1"/>
+      </operator>
+  </operator>
+
+</process>

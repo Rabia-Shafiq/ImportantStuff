@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head profile="http://gmpg.org/xfn/11">
+
+
+<title>DataMining Practice Quiz</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Practice Quiz">
+<meta name="generator" content="WordPress 2.6.1"> <!-- leave this for stats please -->
+<link href="DataMining%20Practice%20Quiz_files/style.css" rel="stylesheet" type="text/css" media="screen">
+<link rel="alternate" type="application/rss+xml" title="DataMining Practice Quiz RSS Feed" href="http://www.insideiitb.net/datamining/?feed=rss2">
+<!--
+<link rel="shortcut icon" type="image/x-png" href="http://www.insideiitb.net/datamining/wp-content/themes/journalist/favicon.png" />
+-->
+
+<link rel="pingback" href="http://www.insideiitb.net/datamining/xmlrpc.php">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.insideiitb.net/datamining/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.insideiitb.net/datamining/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 2.6.1">
+
+</head><body>
+<div id="container" class="group">
+
+<h1><a href="http://www.insideiitb.net/datamining/">DataMining Practice Quiz</a></h1>
+<!--
+<div id="bubble"><p>Practice Quiz</p></div>  erase this line if you want to turn the bubble off -->
+
+<div id="content" class="group">
+
+<h2 id="post-229"><a href="http://www.insideiitb.net/datamining/?p=229" rel="bookmark">8. Twin Junction Trees</a></h2>
+<p class="comments"><a href="http://www.insideiitb.net/datamining/?p=229#comments">Answer </a></p>
+
+<div class="main">
+	<p>Give the smallest graph with two junction trees.</p>
+<p>Solution below:<br>
+<br>&nbsp;<br><br>&nbsp;<br><br>&nbsp;<br><br>
+<br>&nbsp;<br><br>&nbsp;<br><br>&nbsp;<br><br>
+<br>&nbsp;<br><br>&nbsp;<br><br>&nbsp;<br><br>
+<br>&nbsp;<br><br>&nbsp;<br><br>&nbsp;<br></p>
+<p><a href="http://www.insideiitb.net/datamining/wp-content/uploads/2009/03/twin_junction_trees_sol.png"><img class="alignnone size-full wp-image-230" src="DataMining%20Practice%20Quiz_files/twin_junction_trees_sol.png"></a></p>
+<p><em>Src:</em> <a href="http://www.it.iitb.ac.in/%7Esunita/cs627/">CS627</a></p>
+</div>
+
+<!--
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by jagadish <span class="edit"></span></p>
+    <p>March 10th, 2009 at 6:51 am</p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="http://www.insideiitb.net/datamining/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a></p>
+    </div>
+</div>
+
+-->
+
+
+
+
+<h2 id="post-115"><a href="http://www.insideiitb.net/datamining/?p=115" rel="bookmark">7. Max-Margin Classifier</a></h2>
+<p class="comments"><a href="http://www.insideiitb.net/datamining/?p=115#comments">Answer </a></p>
+
+<div class="main">
+	<p>In the previous problem, let’s say we use SVM
+instead of linear regression and the two points were found to be the
+support vectors.</p>
+<p>(a) Write down the equation of the hyperplane wx+b.</p>
+<p>(b) Compare the hyperplane wx+b with Ax+B learned in the previous
+problem. SVM minimizes hinge loss while regression minimizes squared
+loss. Keeping in mind that both these loss functions are different,
+does the comparison surprise you? Why or why not?</p>
+<p>(c) Suppose we add a new point [ 10 +1 ] to the dataset and re-train. How will the hyperplanes change for both the classifiers?</p>
+<p><img class="alignnone size-full wp-image-124" src="DataMining%20Practice%20Quiz_files/datasetgraph.jpg" alt=""></p>
+</div>
+
+<!--
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by Student <span class="edit"></span></p>
+    <p>September 13th, 2008 at 2:34 am</p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="http://www.insideiitb.net/datamining/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a></p>
+    <p>Tagged with <a href="http://www.insideiitb.net/datamining/?tag=regression" rel="tag">regression</a>, <a href="http://www.insideiitb.net/datamining/?tag=svm" rel="tag">SVM</a></p></div>
+</div>
+
+-->
+
+
+
+
+<h2 id="post-101"><a href="http://www.insideiitb.net/datamining/?p=101" rel="bookmark">6. Simple Linear Regression</a></h2>
+<p class="comments"><a href="http://www.insideiitb.net/datamining/?p=101#comments">Answer [1]</a></p>
+
+<div class="main">
+	<p>We have a 1-d dataset where datapoints take labels of either +1 or -1,  basically something that looks like this:</p>
+<p><a href="http://www.insideiitb.net/datamining/wp-content/uploads/2008/09/dataset.jpg"><img class="alignnone size-full wp-image-102" src="DataMining%20Practice%20Quiz_files/dataset.jpg" alt="" width="125" height="204"></a></p>
+<p>Suppose we have only two points in the training set–a negative point
+with feature value 2 and a positive point with feature value 6. We wish
+to learn a classifier of form Ax+B using linear regression.</p>
+<p>(a) Write down the expression of loss function.</p>
+<p>(b) Find the values A and B, that minimizes the above function.</p>
+<p><strong>Solution:</strong><br>
+<img src="DataMining%20Practice%20Quiz_files/simple_linear_regression_sol.jpg"></p>
+</div>
+
+<!--
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by Student <span class="edit"></span></p>
+    <p>September 13th, 2008 at 1:46 am</p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="http://www.insideiitb.net/datamining/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a></p>
+    <p>Tagged with <a href="http://www.insideiitb.net/datamining/?tag=regression" rel="tag">regression</a></p></div>
+</div>
+
+-->
+
+
+
+
+<h2 id="post-62"><a href="http://www.insideiitb.net/datamining/?p=62" rel="bookmark">5. SVM Primal Formulation</a></h2>
+<p class="comments"><a href="http://www.insideiitb.net/datamining/?p=62#comments">Answer [1]</a></p>
+
+<div class="main">
+	<p>The standard SVM primal formulation is as follows:<br>
+<img class="alignnone size-full wp-image-63" src="DataMining%20Practice%20Quiz_files/primal1.jpg" alt=""><br>
+subject to<br>
+<img class="alignnone size-full wp-image-64" src="DataMining%20Practice%20Quiz_files/primal1c.jpg" alt=""></p>
+<p>(a) This seeks to minimize the hinge loss. How would you modify the primal to minimize quadratic loss, instead?</p>
+<p>(b) Take a look at  <a href="http://www.cs.cornell.edu/People/tj/publications/joachims_06a.pdf">this</a> paper by Joachims. There is small change in the way the primal is formulated. The relevant text is replicated below:</p>
+<p><img class="alignnone size-full wp-image-74" src="DataMining%20Practice%20Quiz_files/joachimsyellow.jpg" alt=""></p>
+<p>Please elaborate on what is meant by the underlined statement.</p>
+<p><strong>Solution:</strong><br>
+<img src="DataMining%20Practice%20Quiz_files/svm_primal_formulation_sol.jpg"></p>
+<p><em>(b) : See Question 4 of <a href="http://www.cse.iitb.ac.in/%7Esoumen/teach/cs705a2005/protected/final.pdf">this</a> paper for a wonderful illustration of this problem.<br>
+</em></p>
+<p><em><br>
+Part(a) : kashyap( there is a simpler solution )<br>
+</em></p>
+</div>
+
+<!--
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by Student <span class="edit"></span></p>
+    <p>September 13th, 2008 at 12:14 am</p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="http://www.insideiitb.net/datamining/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a></p>
+    <p>Tagged with <a href="http://www.insideiitb.net/datamining/?tag=svm" rel="tag">SVM</a></p></div>
+</div>
+
+-->
+
+
+
+
+<h2 id="post-60"><a href="http://www.insideiitb.net/datamining/?p=60" rel="bookmark">4. Cross Validated Decision Trees</a></h2>
+<p class="comments"><a href="http://www.insideiitb.net/datamining/?p=60#comments">Answer [2]</a></p>
+
+<div class="main">
+	<p><img class="size-full wp-image-78" src="DataMining%20Practice%20Quiz_files/decision_tres.png" alt="//altermundus.fr/"><br>
+We are given a dataset contaning N training samples. N samples are
+divided into 5 parts and 5 decision trees are built as follows:</p>
+<p>D1: Train on the first 4 parts, leave out the last N/5 part.</p>
+<p>D2: Leave out the second part and train on the other four parts.</p>
+<p>similarly for D3 to D5.</p>
+<p>How can  we build a classifier that uses the collective wisdom of all the above decision trees?</p>
+<table border="0">
+<tbody>
+<tr>
+<td></td>
+<th></th>
+</tr>
+</tbody>
+</table>
+<table border="0">
+<tbody>
+<tr>
+<td></td>
+<th></th>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<table border="0">
+<tbody>
+<tr>
+<td></td>
+<th></th>
+</tr>
+</tbody>
+</table>
+<table border="0">
+<tbody>
+<tr>
+<td></td>
+<th></th>
+</tr>
+</tbody>
+</table>
+<table border="0">
+<tbody>
+<tr>
+<td></td>
+<th></th>
+</tr>
+</tbody>
+</table>
+<p><strong>Solution:</strong><br>
+<img src="DataMining%20Practice%20Quiz_files/cross_validated_decision_trees_sol.jpg"></p>
+<p><em>Solved by: kashyap </em></p>
+<p><em>Image source</em> <a href="http://altermundus.fr/"><em>http://altermundus.fr</em></a></p>
+</div>
+
+<!--
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by Student <span class="edit"></span></p>
+    <p>September 12th, 2008 at 10:33 pm</p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="http://www.insideiitb.net/datamining/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a></p>
+    <p>Tagged with <a href="http://www.insideiitb.net/datamining/?tag=decision_trees" rel="tag">decision_trees</a></p></div>
+</div>
+
+-->
+
+
+
+
+<h2 id="post-28"><a href="http://www.insideiitb.net/datamining/?p=28" rel="bookmark">3. Outlier trouble</a></h2>
+<p class="comments"><a href="http://www.insideiitb.net/datamining/?p=28#comments">Answer [6]</a></p>
+
+<div class="main">
+	<p>In this problem, we compare the effect of an outlier on SVM-classifier and linear-regression.<br>
+We have the following dataset consisting of two classes. Let’s say SVM
+and linear-regression learn the same hyperplane (as shown below) when
+trained on this dataset. Assume that the C(slack penalty) value in SVM
+is fixed to a small value.</p>
+<p><img class="alignnone size-full wp-image-32" src="DataMining%20Practice%20Quiz_files/outlier_sensitivity.jpg" alt=""></p>
+<p><strong>Case 1:</strong><br>
+Suppose a new data point which is very far away is added to the dataset
+and both the classifiers are re-trained. Will the classifiers <strong>drastically</strong> change? Will both of them look similar to the original classifier?</p>
+<p><img class="alignnone size-full wp-image-27" src="DataMining%20Practice%20Quiz_files/outlier_sensitivity2.jpg" alt=""></p>
+<p><strong>Case 2:</strong><br>
+What about this case?</p>
+<p><img class="alignnone size-full wp-image-38" src="DataMining%20Practice%20Quiz_files/outlier_sensitivity1.jpg" alt=""></p>
+<p>Give a short explanation to support your answer for both cases.</p>
+<p>What will happen to SVM if C is very large?</p>
+<p><em> Correct solution so far by: Rakesh(answers are correct but reasoning is a bit inaccurate) </em></p>
+</div>
+
+<!--
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by Student <span class="edit"></span></p>
+    <p>September 12th, 2008 at 2:26 pm</p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="http://www.insideiitb.net/datamining/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a></p>
+    <p>Tagged with <a href="http://www.insideiitb.net/datamining/?tag=regression" rel="tag">regression</a>, <a href="http://www.insideiitb.net/datamining/?tag=svm" rel="tag">SVM</a></p></div>
+</div>
+
+-->
+
+
+
+
+<h2 id="post-13"><a href="http://www.insideiitb.net/datamining/?p=13" rel="bookmark">2. Expectation</a></h2>
+<p class="comments"><a href="http://www.insideiitb.net/datamining/?p=13#comments">Answer [4]</a></p>
+
+<div class="main">
+	<p>Suppose the probability density function of a random variable X is:<br>
+<img class="alignnone size-full wp-image-14" src="DataMining%20Practice%20Quiz_files/expectation_of_random_variable.jpg" alt="" width="417" height="411"></p>
+<p>What is the expectation of X in terms of a and b?</p>
+<p><a href="http://www.insideiitb.net/datamining/wp-content/uploads/2008/09/eq1.jpg"><img class="alignnone size-full wp-image-19" src="DataMining%20Practice%20Quiz_files/eq1.jpg" alt="" width="258" height="87"></a></p>
+<p>Fill in the blank.</p>
+<p><strong>Solution:</strong><br>
+<img src="DataMining%20Practice%20Quiz_files/expectation_sol.jpg"></p>
+<p><em>Solved by: kashyap</em></p>
+</div>
+
+<!--
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by Student <span class="edit"></span></p>
+    <p>September 12th, 2008 at 12:37 pm</p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="http://www.insideiitb.net/datamining/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a></p>
+    <p>Tagged with <a href="http://www.insideiitb.net/datamining/?tag=basics" rel="tag">basics</a></p></div>
+</div>
+
+-->
+
+
+
+
+<h2 id="post-3"><a href="http://www.insideiitb.net/datamining/?p=3" rel="bookmark">1. Uniform Density</a></h2>
+<p class="comments"><a href="http://www.insideiitb.net/datamining/?p=3#comments">Answer [9]</a></p>
+
+<div class="main">
+	<p>The probability density function of a random variable X looks like this:<br>
+<img class="alignnone size-full wp-image-4" src="DataMining%20Practice%20Quiz_files/uniform_density.jpg" alt=""></p>
+<p>What is the value of k?</p>
+<p><strong>Solution:</strong></p>
+<p><img src="DataMining%20Practice%20Quiz_files/uniform_density_sol.jpg"></p>
+<p><em>Solved by: kashyap, N Ganesh, Rakesh, srikrishna, saurabh,  Akshat, sreekanth and Anandraj.</em></p>
+</div>
+
+<!--
+
+<div class="meta group">
+<div class="signature">
+    <p>Written by Student <span class="edit"></span></p>
+    <p>September 12th, 2008 at 12:15 pm</p>
+</div>	
+<div class="tags">
+    <p>Posted in <a href="http://www.insideiitb.net/datamining/?cat=1" title="View all posts in Uncategorized" rel="category">Uncategorized</a></p>
+    <p>Tagged with <a href="http://www.insideiitb.net/datamining/?tag=basics" rel="tag">basics</a></p></div>
+</div>
+
+-->
+
+
+
+
+<div class="navigation group">
+	<div class="alignleft"></div>
+	<div class="alignright"></div>
+</div>
+
+</div> 
+
+<div id="sidebar">
+
+<!--
+<div id="pages">
+<h3>Pages</h3>
+<ul>
+    <li class="page_item page-item-2"><a href="http://www.insideiitb.net/datamining/?page_id=2" title="About">About</a></li>
+</ul>
+</div>
+
+-->
+
+
+
+<div id="search">
+<div id="search_area">
+    <form id="searchform" method="get" action="/datamining/index.php">
+    <div>
+        <input class="searchfield" name="s" id="s" value="" title="Enter keyword to search" type="text">
+        <input class="submit" value="search" title="Click to search archives" type="submit">
+    </div>
+    </form>
+</div>
+</div>
+
+<!--
+<h3>Blogroll</h3>
+<ul>
+<li><a href="http://wordpress.org/development/">Development Blog</a></li>
+<li><a href="http://codex.wordpress.org/">Documentation</a></li>
+<li><a href="http://blog.dreamhost.com/">DreamHost Blog</a></li>
+<li><a href="http://wordpress.org/extend/plugins/">Plugins</a></li>
+<li><a href="http://wordpress.org/extend/ideas/">Suggest Ideas</a></li>
+<li><a href="http://wordpress.org/support/">Support Forum</a></li>
+<li><a href="http://wordpress.org/extend/themes/">Themes</a></li>
+<li><a href="http://planet.wordpress.org/">WordPress Planet</a></li>
+</ul>
+
+<h3>Archives</h3>
+<ul>
+	<li><a href='http://www.insideiitb.net/datamining/?m=200903' title='March 2009'>March 2009</a></li>
+	<li><a href='http://www.insideiitb.net/datamining/?m=200809' title='September 2008'>September 2008</a></li>
+</ul>
+
+<h3>Categories</h3>
+<ul>
+    	<li class="cat-item cat-item-1"><a href="http://www.insideiitb.net/datamining/?cat=1" title="View all posts filed under Uncategorized">Uncategorized</a>
+</li>
+</ul>	
+
+<h3>Meta</h3>
+<ul>
+    <li></li>
+    <li><a href="http://www.insideiitb.net/datamining/wp-login.php">Log in</a></li>
+    <li><a href="feed:http://www.insideiitb.net/datamining/?feed=rss2" title="Syndicate this site using RSS">Site Feed</a></li>
+    <li><a href="feed:http://www.insideiitb.net/datamining/?feed=comments-rss2" title="The latest comments to all posts in RSS">Comments Feed</a></li>
+    <li><a href="#content" title="back to top">Back to top</a></li>
+    </ul>
+
+-->
+
+</div>
+
+</div>
+
+<div id="footer">
+	<p>The Journalist template by <a href="http://lucianmarin.com/" rel="designer">Lucian E. Marin</a> — Built for <a href="http://wordpress.org/">WordPress</a></p>
+</div>
+<script src="DataMining%20Practice%20Quiz_files/e-201005.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({blog:'6900726',v:'ext',post:'0'});
+var load_cmc = function(){linktracker_init(6900726,0,2);};
+if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+else load_cmc();
+</script><img id="wpstats" src="DataMining%20Practice%20Quiz_files/g.gif" alt="">
+
+</body></html>

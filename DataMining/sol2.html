@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.1//EN" "DTD/xhtml11-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+
+
+<title>
+Data Mining Assignment 2 Solutions
+</title>
+<style type="text/css">samp.ul { text-decoration: underline }</style>
+</head><body>
+<h1>Solutions to Assignment 2:  Data Warehousing / Data Preparation</h1>
+<!--Chapters 2,3-->
+<h2>Start date 28 January, due 4 February beginning of class.</h2>
+<p>
+</p>
+<h2>Exercises from the Book</h2>
+<p>
+Complete the following exercises from the book Chapters 2, 3.
+</p>
+<ol>
+<li>
+2.5 a):  Star Schema.  Some people missed that spectator was defined
+to have a rate and type - attributes weren't given for others.<br>
+<img src="sol2_files/sol2star.png" alt="schema diagram" width="100%">
+(1 point)
+<br>
+b) slice/dice on spectator.type=student and location=GM_Place, year=2000;
+then Roll-up to remove game, date. (1 point)</li>
+<li>2.9 a)  Many good examples.  Most were based on fine time granularities,
+but there are others - location granularity was another. (1 point)</li>
+<li>3.2:  See Han Section 3.2.1.  I was looking to see some level of
+independent understanding. (1 point)</li>
+<li>3.3 a) Bin and means: (13+15+16)/3 = 15, (16+19+20)/3 = 18, 21,
+24, 27, 34, 35, 40, 56; replace each value by mean: 15, 15, 15, 18,
+18, 18, 21, 21, 21, ... (0.75 point)<br>
+b) One approach would be to identify
+values that differed significantly from their bin mean.  One problem
+is that an item may be far from its bin mean, but closer to the mean
+of another bin (e.g., 46) - so distance from closest bin would make
+more sense.  "Significant" is a challenge, though - an age of 7 would
+certainly seem an outlier in this data, but 46 doesn't seem to be -
+yet both are 6 from the nearest bin. (0.25 point)
+</li>
+<li>(0.5 point each) <br>
+3.5 a)  norm(x) = x-13/(70-13):  0.39 <br>
+b) norm(x) = (x-avg) / sdev = (35 - 30) / 13 = 0.38<br>
+c) norm(x) = x/100 = .35<br>
+d) My preference would be decimal scaling, as it preserves concepts
+of minimum and maximum age and relative distance.  However, this would
+fail if anyone in the data set were over 100, since all ages would now
+be far from the maximum normalized value.</li>
+<li>3.7 a)  Several possible answers, depending on what you
+chose as the base age.  One is (courtesy Mike Hilligoss):<br>
+<img src="sol2_files/sol2hist.png" alt="Histogram" width="100%">
+(1 point)
+</li>
+</ol>
+<hr>
+<p><a href="http://validator.w3.org/check/referer"><img src="sol2_files/valid-xhtml11.png" alt="Valid XHTML 1.1!" width="88" height="31"></a></p>
+</body></html>

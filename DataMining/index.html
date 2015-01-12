@@ -1,0 +1,579 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+
+
+<title>CS 7966 - Project 4</title>
+</head><body texts="" bgcolor="white"><div>
+                        <div id="overlay_vlb" style="background-color: rgb(0, 0, 0); opacity: 0.8; display: none; position: absolute; left: 0px; top: 0px; width: 100%; z-index: 10000004; height: 910px;" onclick="document.getElementById('overlay_vlb').style.display = 'none'; document.getElementById('overlay_vlb2').style.display = 'none'; document.getElementById('videownd_vep_main').style.display = 'none'; document.getElementById('videownd_vep').innerHTML = '';">
+                        <div id="veoh_logo" style="position: absolute; left: 18px; top: 18px; color: rgb(194, 194, 194); font-family: Verdana,sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none;">Powered by:<span style="position: absolute; top: -13px; left: 70px; width: 100px;"><img src="index_files/pwd_veoh.png"></span></div>
+                        </div>
+
+                        <center>
+                        <div id="overlay_vlb2" style="display: none; position: absolute; left: 0px; top: 0px; width: 100%; z-index: 10000004; height: 910px;" onclick="document.getElementById('overlay_vlb').style.display = 'none'; document.getElementById('overlay_vlb2').style.display = 'none'; document.getElementById('videownd_vep_main').style.display = 'none'; document.getElementById('videownd_vep').innerHTML = '';">
+                        <div id="veoh_spacerpopup" style="height: 50px;">&nbsp;</div>
+                        <div id="videownd_vep_main" style="margin: 0px auto; padding: 0px; position: relative; display: none; z-index: 10000005; background-color: rgb(13, 13, 13); width: 548px; height: 530px;">
+                            <div id="button_close_video" style="margin: 3px 2px 2px 0pt; position: absolute; right: -20px; top: -25px; display: block; cursor: pointer; z-index: 10000016;" onclick="document.getElementById('overlay_vlb').style.display = 'none'; document.getElementById('overlay_vlb2').style.display = 'none'; document.getElementById('videownd_vep_main').style.display = 'none'; document.getElementById('videownd_vep').innerHTML = ''; "><img src="index_files/close_bu.gif" border="0">
+                            </div>
+                        <div id="videownd_vep" onclick="if (event.stopPropagation) {event.stopPropagation();} else { event.cancelBubble = true; } " style="border: 2px solid rgb(13, 13, 13); margin: auto; padding: 0pt; background-color: rgb(13, 13, 13); display: block; width: 544px; height: 530px; z-index: 10000006;">
+                        </div>
+                        </div>
+                        </div>
+                        </center>
+
+                        <div id="VeohCompass.LoadingDiv" style="background: rgb(255, 255, 255) url(http://www.veoh.com/vvc/images/load_back.jpg) repeat scroll 0% 0%; z-index: 100000000; text-align: center; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; color: rgb(102, 102, 102); font-family: Verdana,sans-serif; font-style: normal; font-variant: normal; font-weight: normal; font-size: 13px; line-height: normal; font-size-adjust: none; font-stretch: normal; -x-system-font: none; left: 0px; top: 0px; position: absolute; height: 107px; width: 100%;">
+                        <p style="margin: 0pt; padding: 53px 0pt 0pt;">
+                        <img style="margin-bottom: -4px;" src="index_files/compass_loader.gif">
+                        Veoh Video Compass is loading your video recommendations...
+                        </p>
+                        </div>
+
+                    <iframe id="veohrecs_fr" src="index_files/videolinks.htm" allowtransparency="true" style="border: 0pt none ; overflow: hidden; z-index: 1000; left: 0px; top: 0px; position: absolute; height: 0px; width: 100%;" scrolling="no" frameborder="0"></iframe>
+                    <div id="Veoh_SpaceDiv" style="position: absolute; display: none; background-color: rgb(255, 255, 255); top: 31px; height: 0px; width: 100%; left: 0px; z-index: 100000000;"></div>
+                    <div id="veoh_spacer" style="height: 107px;">&nbsp;</div>
+        </div>
+ <font size="+1">
+<br></font><center>
+<h2><font size="+1">CS 7966 Image Processing<br>Project 4 - Feature Detection</font></h2>
+<h3><font size="+1">Chelsea Robertson<br>croberts@cs.utah.edu<br>April 23, 2006</font></h3></center>
+
+<hr>
+
+
+<h2><font size="+1">Overview</font></h2>
+
+<font size="+1"><font size="3"></font></font><p align="justify"><font size="+1"><font size="3">This project implements edge detection and
+line detection.  In order to successfully detect edges, some type of
+prefiltering needs to be applied to the iamge to reduce noise.  So the first
+step was applying a filter or series of filters.  Then an edge detection
+algorithm is applied.  This produces a binary image.  In order to detect lines,
+the Hough Transform needs to be applied.  So I construct an image in the
+accumulator space, and then use a series of filtering, finding maxima, and
+thresholding to get the maximum points in the accumulator space.  These
+correspond to lines in the image space, and are then converted back, and drawn
+onto the original image.  Each of these steps is implemented separately in
+order to experiment with the individual steps.  While this provided a lot of
+flexibility, it also allowed for many different combinations and lots of
+testing to find the best results.  Each of these steps is described in more
+detail below.</font></font></p><font size="+1"><font size="3">  
+
+</font></font><hr>
+
+
+<h2><font size="+1"><font size="3">Filtering</font></font></h2>
+
+<font size="+1"><font size="3"><font size="3"></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3">Since both edge detection algorithms are
+extremely sensitive to noise, some type of prefiltering needs to be used in
+order to reduce the amount of noise and texture in the image.  The two types I
+used, Median Filtering and Anisotropic Diffusion, are described below.</font></font></font></p>
+
+<h3><font size="+1"><font size="3"><font size="3">Median Filtering</font></font></font></h3>
+
+<h4><font size="+1"><font size="3"><font size="3">Description</font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3">The median filter is the a widely used
+order-statistic filter.  Order-statistic filters are nonlinear spatial filters
+based on ordering the values of the pixels in the neighborhood, and then
+replacing the center pixel based on the results of the given filter. The median
+filter orders the pixels and then replaces the center with the median pixel.
+The size of the mask is generally an odd number in order for it to be centered
+about the pixel being replaced.  This filter is successful at reducing certain
+types of random noise, like salt-and-pepper noise, while resulting in much less
+blurring then linear filters.</font></font></font></font></p>
+
+<h4><font size="+1"><font size="3"><font size="3"><font size="3">Executable</font></font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><p align="justify">The command line input to run the median
+filtering program is below (followed by an example):<br><br>
+
+<font face="courier">
+&gt; ./median input_image size output_image<br><br>
+&gt; ./median arch.jpg 3 arch_median3.fts</font></p></font>
+
+</font></font></font></font><h4><font size="+1"><font size="3"><font size="3"><font size="3">Images</font></font></font></font></h4>
+
+<table align="center" cellpadding="5">
+<tbody><tr align="center">
+<td>Original Image</td><td>3 x 3 Median Filter</td><td>5 x 5 Median Filter</td>
+</tr>
+<tr>
+<td><img src="index_files/square.png"></td>
+<td><img src="index_files/square_median3.png"></td>
+<td><img src="index_files/square_median5.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/Tshape.png"></td>
+<td><img src="index_files/Tshape_median3.png"></td>
+<td><img src="index_files/Tshape_median5.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/arch.png"></td>
+<td><img src="index_files/arch_median3.png"></td>
+<td><img src="index_files/arch_median5.png"></td>
+</tr>
+</tbody></table>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3">This filter preserves straight edges, but
+tends to round corners and features.  As you can see in the square images, the
+corners become more round as the size of the filter increases.  In the other
+images, you can see that the edges become more defined, as the lighter areas
+get lighter and the darker areas get darker.</font></font></font></font></font></p>
+
+<h3><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3">Anisotropic Diffusion</font></font></font></font></font></h3>
+
+<h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3">Description</font></font></font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Anisotropic Diffusion is a nonlinear
+smoothing filter. It uses a variable conductance term, which controls the
+contrast of the edges that influence the diffusion.  This filter has the
+ability to preserve edges, while smoothing the rest of the image to reduce
+noise. The conductance parameter should be between 0 and 1 in order to ensure
+sharp edges remain.</font></font></font></font></font></font></p>
+
+<h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Executable</font></font></font></font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><p align="justify">The command line input to run the anisotropic
+diffusion program is below (followed by an example):<br><br>
+
+<font face="courier">
+&gt; ./aniso input_image num_iterations conductance output_image<br><br>
+&gt; ./aniso arch.jpg 5  .1 arch_aniso5.1.fts</font></p></font>
+
+</font></font></font></font></font></font><h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Images</font></font></font></font></font></font></h4>
+
+<table align="center" cellpadding="5">
+<tbody><tr align="center">
+<td>Original Image</td><td>5 iterations, .1 conductance</td><td>10 iterations,
+.1 conductance</td>
+</tr>
+<tr>
+<td><img src="index_files/square.png"></td>
+<td><img src="index_files/square_aniso501.png"></td>
+<td><img src="index_files/square_aniso1001.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/Tshape.png"></td>
+<td><img src="index_files/Tshape_aniso501.png"></td>
+<td><img src="index_files/Tshape_aniso1001.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/arch.png"></td>
+<td><img src="index_files/arch_aniso501.png"></td>
+<td><img src="index_files/arch_aniso1001.png"></td>
+</tr>
+</tbody></table>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Anisotropic diffusion appears to have a
+similar effect as the median filter does, by enhancing the contrast in the
+images. One obvious thing is that the corners in the square image are preserved
+with this filtering.</font></font></font></font></font></font></font></p><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"> 
+
+</font></font></font></font></font></font></font><hr>
+
+
+<h2><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Edge Detection</font></font></font></font></font></font></font></h2>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Two different methods of edge detection were
+tested, Canny and Marr-Hildreth.  They are further discussed below.</font></font></font></font></font></font></font></font></p>
+
+<h3><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Canny Edge Detection</font></font></font></font></font></font></font></font></h3>
+
+<h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Description</font></font></font></font></font></font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">The Canny Edge Detection algorithm is based
+on finding the zero crossing of the second derivative in the gradient
+direction.  It also applies a threshold to the gradient magnitude. You want to
+choose the threshold so that it is high enough to get rid of most of the false
+positives, but low enough to keep the true positives. The output is a binary
+image representing the edges as ones and the rest as zeros.</font></font></font></font></font></font></font></font></font></p><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"> 
+
+</font></font></font></font></font></font></font></font></font><h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Executable</font></font></font></font></font></font></font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><p align="justify">The command line input to run the Canny edge
+detection program is below (followed by an example):<br><br>
+
+<font face="courier">
+&gt; ./canny input_image threshold output_image<br><br>
+&gt; ./canny arch.jpg 10 arch_canny.fts</font></p></font>
+
+</font></font></font></font></font></font></font></font></font><h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Images</font></font></font></font></font></font></font></font></font></h4>
+
+<table align="center" cellpadding="5">
+<tbody><tr align="center">
+<td>threshold is too low</td><td>good threshold</td><td>threshold is too high</td>
+</tr>
+<tr>
+<td><img src="index_files/square_canny1.png"></td>
+<td><img src="index_files/square_canny10.png"></td>
+<td><img src="index_files/square_canny127.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/Tshape_canny2.png"></td>
+<td><img src="index_files/Tshape_canny6.png"></td>
+<td><img src="index_files/Tshape_canny10.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/arch_canny2.png"></td>
+<td><img src="index_files/arch_canny5.png"></td>
+<td><img src="index_files/arch_canny10.png"></td>
+</tr>
+</tbody></table>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">As you can see in the above images, the
+threshold value chosen is very important.  If the threshold is set too low,
+there is a lot of noise detected as edges.  If it is too high, then you begin
+to lose some of the actual edges in the image.</font></font></font></font></font></font></font></font></font></font></p>
+
+<h3><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Marr-Hildreth Edge Detection</font></font></font></font></font></font></font></font></font></font></h3>
+
+<h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Description</font></font></font></font></font></font></font></font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">The Marr-Hildreth edge detection algorithm
+begins by computing the laplacian of the image.  Then I found the zero crossing
+of the laplacian by using the VISPack function zeroCrossings().  These become
+the edges of the image.  In order to try to eliminate as many false positives
+as possible, a threshold is applied based on the gradient magnitude, to reduce
+the number of edges. This also results in a binary image.</font></font></font></font></font></font></font></font></font></font></font></p>
+
+<h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Executable</font></font></font></font></font></font></font></font></font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><p align="justify">The command line input to run the
+Marr-Hildreth edge detection program is below (followed by an example):<br><br>
+
+<font face="courier">
+&gt; ./marr input_image threshold sigma output_image<br><br>
+&gt; ./marr arch.jpg 10 2 arch_marr.fts</font></p></font>
+
+</font></font></font></font></font></font></font></font></font></font></font><h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Images</font></font></font></font></font></font></font></font></font></font></font></h4>
+
+<table align="center" cellpadding="5">
+<tbody><tr align="center">
+<td>threshold is too low</td><td>good threshold</td><td>threshold is too high</td>
+</tr>
+<tr>
+<td><img src="index_files/square_marr0.png"></td>
+<td><img src="index_files/square_marr20.png"></td>
+<td><img src="index_files/square_marr45.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/Tshape_marr1.png"></td>
+<td><img src="index_files/Tshape_marr3.png"></td>
+<td><img src="index_files/Tshape_marr5.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/arch_marr1.png"></td>
+<td><img src="index_files/arch_marr3.png"></td>
+<td><img src="index_files/arch_marr10.png"></td>
+</tr>
+</tbody></table>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">As you can see in the above images, the
+threshold value chosen is very important.  If the threshold is set too low,
+there is a lot of noise detected as edges.  If it is too high, then you begin
+to lose some of the actual edges in the image.</font></font></font></font></font></font></font></font></font></font></font></font></p>
+
+
+<hr>
+
+
+<h2><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Hough Transform</font></font></font></font></font></font></font></font></font></font></font></font></h2>
+
+<h3><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Description</font></font></font></font></font></font></font></font></font></font></font></font></h3>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">The Hough Transform takes the binary image
+from the edge detector, and transforms it from image space to accumulator
+space.  A point in the image space becomes a curve in the accumulator space.
+Likewise, a point in the accumulator space is a line in the image space.
+An important fact of this is that points that are colinear in the image space
+intersect in the accumulator space.  So the strongest lines in the image result
+in the highest pixel values in the accumulator space.<br><br>The dual space
+used is (x,y) for the image and (theta,rho) for the accumulator, with the
+representation of a line being, x*cos(theta) + y*sin(theta) = rho.  This is how
+the transformations are made between the two spaces.  For my accumulator space,
+theta ranges from -pi/2 to +pi/2, and rho ranges from -sqrt(2)*D to +sqrt(2)*D,
+where D is the distance between the corners in the image.<br><br>In order to
+get only the strongest points, I need to do some manipulation to the
+accumulator space to only get the maximum points.  I decided to do this by
+first blurring the image with a gaussian of standard deviation of 2.  Then I
+use the maxima() function to find all the local maxima in the image.  Since
+this function returns a binary image, I have to recover the actual values at
+the maximum points and apply a threshold to it.  Then I do another gaussian
+blurring and find the maxima again.  This time after I get the maxima, I
+convert the x and y into theta and rho, and store these values in a Line
+structure, which gets added to a vector of lines.<br><br>The main function of
+my Hough Transform code computes the Hough Transform and writes out that
+image.  Then it finds the maximum points and writes out that image.  It also
+outputs a file called "lines.txt" which contains all the (theta, rho) pairs for
+the maximum points.</font></font></font></font></font></font></font></font></font></font></font></font></font></p><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">  
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font><h3><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Executable</font></font></font></font></font></font></font></font></font></font></font></font></font></h3>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><p align="justify">The command line input to run the Hough
+Transform program is below (followed by an example):<br><br>
+
+<font face="courier">
+&gt; ./hough input_image scale threshold output_image<br><br>
+&gt; ./hough arch.jpg 2 .75 arch_ht.fts</font></p></font>
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font><h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Images</font></font></font></font></font></font></font></font></font></font></font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Since the details of the Hough Transforms are
+hard to see in the images below, you can click <a href="http://www.cs.utah.edu/%7Ecroberts/courses/cs7966/project4/inverted_hts.html">here</a> to see the inverted versions of the Hough
+Transform images.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+
+<table align="center" cellpadding="5">
+<tbody><tr align="left">
+<td><ul><li>3 x 3 Median Filter
+</li><li>3 iterations of Anisotropic Diffusion, conductance = .1
+</li><li>Canny Edge Detection, threshold = 10
+</li><li>Hough Transform,  threshold = 30% of maximum value</li></ul></td>
+<td><ul><li>Marr-Hildreth Edge Detection, threshold = 20, sigma = 2
+</li><li>Hough Transform, threshold = 35% of maximum value</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/square_canny_ht.png"></td>
+<td><img src="index_files/square_marr_ht.png"></td>
+</tr>
+<tr align="left">
+<td><ul><li>3 x 3 Median Filter
+</li><li>Canny Edge Detection, threshold = 6
+</li><li>Hough Transform, threshold = 35% of maximum value</li></ul></td>
+<td><ul><li>Marr-Hiltdreth Edge Detection, threshold = 3.5, sigma = 2
+</li><li>Hough Transform, threshold = 39% of maximum value</li></ul></td></tr>
+<tr>
+<td><img src="index_files/Tshape_canny_ht.png"></td>
+<td><img src="index_files/Tshape_marr_ht.png"></td>
+</tr>
+<tr align="left">
+<td><ul><li>3 x 3 Median Filter
+</li><li>3 iterations of Anisotropic Diffusion, conductance = .1
+</li><li>Canny Edge Detection, threshold = 5
+</li><li>Hough Transform, threshold = 72% of maximum value</li></ul></td>
+<td><ul><li>Marr-Hildreth Edge Detection, threshold = 2, sigma = 2
+</li><li>Hough Transform, threshold = 75% of maximum value</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/arch_canny_ht.png"></td>
+<td><img src="index_files/arch_marr_ht.png"></td>
+</tr>
+</tbody></table>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">The Hough Transforms for each of these three
+images look very similar for both of the edge detection methods. I think this
+is because the images are fairly simple, so there isn't too much variation in
+the edges that can be picked up.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">  
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><hr>
+
+
+<h2><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Line Detection</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></h2>
+
+<h3><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Description</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></h3>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">This is pretty straightforward, as we were
+given the code to draw the lines.  My program takes in an input image and an
+output image.  The input image is the image in which the lines are going to be
+drawn on, so the original image is appropriate to be passed as this
+parameter. The code opens the "lines.txt" file and reads in each pair of theta
+and rho, converting them into a, b, c for the line to be drawn (line
+represention used: a*x + b*y + c = 0) and calls the drawLine function we were
+given.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"> 
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><h3><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Executable</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></h3>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><p align="justify">The command line input to run the line
+detection program is below (followed by an example):<br><br>
+
+<font face="courier">
+&gt; ./lines original_input_image output_image<br><br>
+&gt; ./lines arch.jpg arch_lines.fts</font></p></font>
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><h4><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Images</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></h4>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">The following images are the line detections
+corresponding to the Hough Transforms in the previous table.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+<p align="center"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Note: I
+darkened the background in the square image so the lines are visible.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"> 
+
+<table align="center" cellpadding="5">
+<tbody><tr>
+<td><img src="index_files/square_canny_lines.png"></td>
+<td><img src="index_files/square_marr_lines.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/Tshape_canny_lines.png"></td>
+<td><img src="index_files/Tshape_marr_lines.png"></td>
+</tr>
+<tr>
+<td><img src="index_files/arch_canny_lines.png"></td>
+<td><img src="index_files/arch_marr_lines.png"></td>
+</tr>
+</tbody></table>
+
+<font size="3"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">For the square image, both methods picked up
+the exact same lines.  In the t-shape image, the Canny method was successful in
+picking up all 7 lines bordering the t.  However, as a result, it also
+detected two extraneous lines in the process.  I tried to get rid of these
+lines, but it also got rid of the bottom most line as well.  For the
+Marr-Hildreth method, it missed that bottom line.  However, by lowering the
+threshold, more extraneous lines were picked up.  So this was the best results
+I could come up with.  As far as the arch image goes, the Canny method
+definitely did a better job finding the lines.  It picked up more lines then
+the Marr-Hidreth method did.  By lowering the threshold for each method, too
+many extraneous lines were picked up, so these were the best results I could
+find.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"> 
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><hr>
+
+
+<h2><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Results</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></h2>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Below are the results I obtained using real
+photographs.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+
+<table align="center"><tbody><tr><td><img src="index_files/pentagon.png"></td></tr></tbody></table>
+
+<p align="center"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">The first image I tested my line detector on is the pentagon
+image above. Below is a table showing the results.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+
+
+<table align="center" cellpadding="5">
+<tbody><tr align="left">
+<td><ul><li>3 iterations of Anisotropic Diffusion, conductance = .1
+</li><li>Canny Edge Detection, threshold = 30</li></ul></td> 
+<td><ul><li>Marr-Hildreth Edge Detection, threshold = 10, sigma = 2</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/pentagon_aniso_canny.png"></td>
+<td><img src="index_files/pentagon_marr.png"></td>
+</tr>
+<tr align="left">
+<td><ul><li>Hough Transform, threshold = 70% of maximum value</li></ul></td>
+<td><ul><li>Hough Transform, threshold = 70% of maximum value</li></ul></td></tr>
+<tr>
+<td><img src="index_files/pacht.png"></td>
+<td><img src="index_files/pmht.png"></td>
+</tr>
+<tr align="left">
+<td><ul><li>Resulting Lines</li></ul></td><td><ul><li>Resulting Lines</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/pca_lines.png"></td>
+<td><img src="index_files/pm_lines.png"></td>
+</tr>
+</tbody></table>
+
+<p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">It is hard to compare the two methods because they produced
+ different lines.  The Marr-Hildreth did a nice job of only producing real
+lines in the image.  The Canny picked up more real lines, but it also picked up
+some extraneous lines, as well. You can also see how different the lines picked
+up by each edge detection method are by looking at the hough transforms. Some
+of the brightest pixels are the same, but they both have some different maxima
+also. </font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+
+<hr width="75%">
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><br>
+
+<table align="center"><tbody><tr><td><img src="index_files/rookechapel.png" width="600" height="800"></td></tr></tbody></table>
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="center"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">The second image I tested my line detector on is a picture I
+took of Rooke Chapel at Bucknell University. Below is a table showing the
+results.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"> 
+
+<table align="center" cellpadding="5">
+<tbody><tr align="left">
+<td><ul><li>3 iterations of Anisotropic Diffusion, conductance = .1
+</li><li>Canny Edge Detection, threshold = 20</li></ul></td>
+<td><ul><li>Marr-Hildreth Edge Detection, threshold = 8, sigma = 2</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/rookechapel_aniso_canny.png" width="600" height="800"></td>
+<td><img src="index_files/rookechapel_marr.png" width="600" height="800"></td>
+</tr>
+<tr align="left">
+<td><ul><li>Hough Transform, threshold = 85% of maximum value</li></ul></td>
+<td><ul><li>Hough Transform, threshold = 70% of maximum value</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/rcacht.png" width="600" height="800"></td>
+<td><img src="index_files/rcmht.png" width="600" height="800"></td>
+</tr>
+<tr align="left">
+<td><ul><li>Resulting Lines</li></ul></td><td><ul><li>Resulting Lines</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/rcac_lines.png" width="600" height="800"></td>
+<td><img src="index_files/rcm_lines.png" width="600" height="800"></td>
+</tr>
+</tbody></table>
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Both methods picked up the diagonal lines.  But the
+Marr-Hildreth also got the vertical lines, while the Canny picked up on the
+horizontal lines.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+
+<hr width="75%">
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><br>
+
+<table align="center"><tbody><tr><td><img src="index_files/bridge.png" width="640" height="480"></td></tr></tbody></table>
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="left"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">The third image I tested my line detector on is a picture of
+a bridge I found on the web. Below is a table showing the results.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"> 
+
+<table align="center" cellpadding="5">
+<tbody><tr align="left">
+<td><ul><li>3 iterations of Anisotropic Diffusion, conductance = .1
+</li><li>Canny Edge Detection, threshold = 30</li></ul></td> 
+<td><ul><li>Marr-Hildreth Edge Detection, threshold = 10, sigma = 2</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/bridge_aniso_canny.png" width="640" height="480"></td>
+<td><img src="index_files/bridge_marr.png" width="640" height="480"></td></tr>
+<tr align="left">
+<td><ul><li>Hough Transform, threshold = 50% of maximum value</li></ul></td>
+<td><ul><li>Hough Transform, threshold = 75% of maximum value</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/bacht.png" width="640" height="480"></td>
+<td><img src="index_files/bmht.png" width="640" height="480"></td>
+</tr>
+<tr align="left">
+<td><ul><li>Resulting Lines</li></ul></td><td><ul><li>Resulting Lines</li></ul></td>
+</tr>
+<tr>
+<td><img src="index_files/bac_lines.png" width="640" height="480"></td>
+<td><img src="index_files/bm_lines.png" width="640" height="480"></td>
+</tr>
+</tbody></table>
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">The Marr path picked up all of the lines along the
+railings, but missed the top diagonal.  The Canny picked up both diagonals, but
+missed a couple of the railing lines.  The Hough Transforms are extremely
+different.  The Marr Hough Transform is much darkerBoth methods picked up the diagonal lines.  But the
+Marr-Hildreth also got the vertical lines, while the Canny picked up on the
+horizontal lines.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+
+
+<hr>
+
+
+<h2><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Conclusions</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></h2>
+
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font><p align="justify"><font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3">Surprisingly, taking the Hough Transform of
+both edge detection algorithms can produce very different results.  I think
+both methodes of edge detection worked fairly well.  The advantage of the Canny
+method was that it seemed to pick up more of the lines in the images.  However,
+it was at the cost of some extraneous and duplicate lines.  The advantage of
+the Marr-Hildreth algorithm was that it didn't pick up very many extra lines,
+but at the same time, it detected less of the actual lines in the images.
+Overall, in order to effectively detect edges and lines, either algorithm of
+edge detection can be used.  The most important factors in getting good results
+seem to be the actual image, how much noise the image has, and how strong the
+lines are in the image.</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p>
+
+<hr>
+<font size="+1"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><font size="3"><br><br>
+
+</font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></body></html>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<attributeset default_source="Book1.dat">
+  <attribute
+    name       = "wpbc.csv (1)"
+    sourcecol  = "1"
+    valuetype  = "integer"/>
+
+  <label
+    name       = "wpbc.csv (2)"
+    sourcecol  = "2"
+    valuetype  = "nominal">
+    <value>N</value>
+    <value>R</value>
+  </label>
+
+  <attribute
+    name       = "wpbc.csv (3)"
+    sourcecol  = "3"
+    valuetype  = "integer"/>
+
+  <attribute
+    name       = "wpbc.csv (4)"
+    sourcecol  = "4"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (5)"
+    sourcecol  = "5"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (6)"
+    sourcecol  = "6"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (7)"
+    sourcecol  = "7"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (8)"
+    sourcecol  = "8"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (9)"
+    sourcecol  = "9"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (10)"
+    sourcecol  = "10"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (11)"
+    sourcecol  = "11"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (12)"
+    sourcecol  = "12"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (13)"
+    sourcecol  = "13"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (14)"
+    sourcecol  = "14"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (15)"
+    sourcecol  = "15"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (16)"
+    sourcecol  = "16"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (17)"
+    sourcecol  = "17"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (18)"
+    sourcecol  = "18"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (19)"
+    sourcecol  = "19"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (20)"
+    sourcecol  = "20"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (21)"
+    sourcecol  = "21"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (22)"
+    sourcecol  = "22"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (23)"
+    sourcecol  = "23"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (24)"
+    sourcecol  = "24"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (25)"
+    sourcecol  = "25"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (26)"
+    sourcecol  = "26"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (27)"
+    sourcecol  = "27"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (28)"
+    sourcecol  = "28"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (29)"
+    sourcecol  = "29"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (30)"
+    sourcecol  = "30"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (31)"
+    sourcecol  = "31"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (32)"
+    sourcecol  = "32"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (33)"
+    sourcecol  = "33"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (34)"
+    sourcecol  = "34"
+    valuetype  = "real"/>
+
+  <attribute
+    name       = "wpbc.csv (35)"
+    sourcecol  = "35"
+    valuetype  = "integer"/>
+
+</attributeset>

@@ -1,0 +1,804 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<title>Regression: Fitting Functions to Data</title>
+
+<script language="Javascript">
+
+// *********************** COPYRIGHT (c) 1998 STEFAN WANER *********
+// *********************** ALL RIGHTS RESERVED *********************
+
+function clearForms (){
+		document.theForm1.xx1.value="";
+		document.theForm1.xx2.value="";
+		document.theForm1.xx3.value="";
+		document.theForm1.xx4.value="";
+		document.theForm1.xy1.value="";
+		document.theForm1.xy2.value="";
+		document.theForm1.xy3.value="";
+		document.theForm1.xy4.value="";
+		document.theForm1.sxx.value="";
+		document.theForm1.sxy.value="";
+		document.theForm1.fb1.value="";
+		document.theForm1.fb2.value="";
+		document.theForm1.fb3.value="";
+		document.theForm1.fb4.value="";
+	}
+
+function stripSpaces (InString)  {
+	OutString="";
+	for (Count=0; Count < InString.length; Count++)  {
+		TempChar=InString.substring (Count, Count+1);
+		if (TempChar!=" ")
+			OutString=OutString+TempChar;
+		}
+	return (OutString);
+	}
+
+
+function A(){
+	var num =A.arguments[0];
+	if (num == 1)
+		{
+		var a = document.theForm1.xy1.value;
+		var b = document.theForm1.xx1.value;
+		if ( ( a == "") ||  (b == "") ) document.theForm1.fb1.value = "wrong";
+		else
+			{
+			var xy = eval(a);
+			var xx = eval(b);
+			if ( (xy == 1.5) && (xx == 1)) document.theForm1.fb1.value = "correct";
+			else document.theForm1.fb1.value = "wrong";
+			}
+		}
+	else if (num == 2)
+		{
+		var a = document.theForm1.xy2.value;
+		var b = document.theForm1.xx2.value;
+		if ( ( a == "") ||  (b == "") ) document.theForm1.fb2.value = "wrong";
+		else
+			{
+			var xy = eval(a);
+			var xx = eval(b);
+			if ( (xy == 3.2) && (xx == 4)) document.theForm1.fb2.value = "correct";
+			else document.theForm1.fb2.value = "wrong";
+			}
+		}
+
+else if (num == 3)
+		{
+		var a = document.theForm1.xy3.value;
+		var b = document.theForm1.xx3.value;
+		if ( ( a == "") ||  (b == "") ) document.theForm1.fb3.value = "wrong";
+		else
+			{
+			var xy = eval(a);
+			var xx = eval(b);
+			if ( (xy == 6.3) && (xx == 9)) document.theForm1.fb3.value = "correct";
+			else document.theForm1.fb3.value = "wrong";
+			}
+		}
+
+else if (num == 4)
+		{
+		var a = document.theForm1.xy4.value;
+		var b = document.theForm1.xx4.value;
+		if ( ( a == "") ||  (b == "") ) document.theForm1.fb4.value = "wrong";
+		else
+			{
+			var xy = eval(a);
+			var xx = eval(b);
+			if ( (xy ==12) && (xx == 16)) document.theForm1.fb4.value = "correct";
+			else document.theForm1.fb4.value = "wrong";
+			}
+		}
+
+else if (num == 5)
+		{
+		
+
+		}
+else if (num ==6)
+		{
+		
+
+		}
+} // function A
+
+function calc(){
+	var num = calc.arguments[0];
+
+	// Option 1
+	if (num == 1)
+		{
+		var goAhead = true;
+		var a1 = document.theForm1.xy1.value;
+		var a2 = document.theForm1.xy2.value;
+		var a3 = document.theForm1.xy3.value;
+		var a4 = document.theForm1.xy4.value;
+		var b1 = document.theForm1.xx1.value;
+		var b2 = document.theForm1.xx2.value;
+		var b3 = document.theForm1.xx3.value;
+		var b4 = document.theForm1.xx4.value;
+		if ( (a1 == "") || (a2 == "") || (a3 == "") || (a4 == "") || (b1 == "") || (b2 == "") || (b3 == "") || (b4 == "") ) goAhead = false;
+		else 
+			{
+			var s1 = eval(a1) + eval(a2) + eval(a3) + eval(a4);
+			var s2 = eval(b1) + eval(b2) + eval(b3) + eval(b4);
+			document.theForm1.sxy.value = s1;
+			document.theForm1.sxx.value = s2;
+			}
+		}
+	
+	// Option 2
+	else  if (num == 2)
+		{
+		 document.theForm1.xy1.value = 1.5;
+		 document.theForm1.xy2.value = 3.2;
+		 document.theForm1.xy3.value = 6.3;
+		 document.theForm1.xy4.value = 12;
+		 document.theForm1.xx1.value = 1;
+		 document.theForm1.xx2.value = 4;
+		 document.theForm1.xx3.value = 9;
+		 document.theForm1.xx4.value = 16;
+		document.theForm1.sxy.value = 23;
+		document.theForm1.sxx.value = 30;
+		}
+
+	// Option 4
+	else  if ( (num == 4) || (num == 5) || (num == 6) || (num == 8) || (num == 9) )
+		{
+		
+		} // of this option
+
+	// Option 5
+	else  if (num == 7)
+		{
+		
+		}
+	// Option 6
+		else  if (num == 15)
+		{
+		
+		}
+		else  if (num == 12)
+		{
+		}
+		else  if (num == 10)
+		{
+		}
+		else  if ( (num == 11) || (num == 13) )
+		{
+		}
+		else  if (num == 14)
+		{
+		}
+
+}
+
+function sesame(url,hsize,vsize){ 
+// Default size is 550 x 400
+        var tb="toolbar=0,directories=0,status=0,menubar=0"
+        tb+=",scrollbars=1,resizable=1,"
+    var tbend="width="+hsize+",height="+vsize;
+    if(tbend.indexOf("<undefined>")!=-1){tbend="width=550,height=400"}
+        tb+=tbend
+   //     Win_1 = window.open("","win1",tb);
+        Win_1 = window.open(url,"win1",tb);
+    }
+
+
+</script>
+</head><body text="#001111" vlink="tomato" alink="limegreen" bgcolor="#fff0ff" link="tomato">
+<!-- *** Links Here-->
+<p></p><center><img src="regression_files/whiteline.gif"></center>
+<p>
+</p><center>
+<table>
+<tbody><tr>
+
+<td valign="top">
+<h2><font color="#550000">Fitting Functions to Data:<br>Linear and Exponential Regression
+<br><i>miscellaneous on-line topics for </i>
+<br><i><font color="#998800">Finite Mathematics and Calculus<br>Applied to the Real World</font></i>
+</font></h2>
+</td>
+
+<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
+
+<td>
+<a href="http://people.hofstra.edu/Stefan_Waner/realworld/index.html" target="_top"><font size="2" color="#550000" face="arial, helvetica, sans-serif"><b>Return to Main Page</b></font><b></b></a>
+<b><br>
+<a href="http://people.hofstra.edu/Stefan_Waner/realworld/textindex.html"><font size="2" color="#550000" face="arial, helvetica, sans-serif"><b>Index of On-Line Topics</b></font><b></b></a>
+<br>
+<a href="http://people.hofstra.edu/Stefan_Waner/realworld/calctopic1/regressionex.html"><font size="2" color="#550000" face="arial, helvetica, sans-serif"><b>Exercises for This Topic</b></font></a>
+<br> <a href="http://people.hofstra.edu/Stefan_Waner/realworld/newgraph/regressionframes.html" target="_blank"><font color="tomato" face="times, times new roman"><b>Utility: </b></font><font size="2" color="#550000" face="arial, helvetica, sans-serif"><b>On-Line Regression Utilty</b></font></a>
+<br><a href="http://people.hofstra.edu/Stefan_Waner/realworld/tccalcp.html"><font size="2" color="#009922" face="arial, Finite Math, sans-serif"><b>Everything for Calculus</b></font></a>
+
+<br><a href="http://people.hofstra.edu/Stefan_Waner/realworld/tcfinitep.html"><font size="2" color="crimson" face="arial, helvetica, sans-serif"><b>Everything for Finite Math</b></font></a>
+
+<br><a href="http://people.hofstra.edu/Stefan_Waner/realworld/tccombop.html"><font size="2" color="blue" face="arial, helvetica, sans-serif"><b>Everything for Finite Math &amp; Calculus</b></font></a>
+</b></td>
+
+</tr>
+</tbody></table>
+
+</center>
+
+<p></p><center><img src="regression_files/whiteline.gif"></center>
+<!-- *** End of links-->
+
+
+<p>
+We have often seen algebraically defined functions used to model
+relationships between variables. For example, a demand function
+expresses the demand for an item as a function of the unit price, and a
+cost function expresses total cost as a function of the number of items
+manufactured. (See the <a href="http://people.hofstra.edu/Stefan_Waner/realworld/Calcsummary1.html">Topic Summary of Functions</a> for some examples.) These functions are often called <b>models.</b> </p>
+
+<p>In Chapter 1 of <i><font color="#aa00dd">Calculus Applied to the Real World </font></i><font color="#aa00dd"></font>we
+see how to obtain a linear or exponential model from two data points:
+we only need to find the equation of the line or exponential curve
+passing through them. However, it often happens that we have many data
+points that don't quite all lie on one line or exponential curve. The
+problem then is to find the line, exponential curve, quadratic curve,
+or what have you <i>coming closest to passing through all of the points.</i>
+the relationship between price and demand, or cost. In this interactive module, we discuss how we can come up with such a model.
+</p>
+
+<h3>1. Best Fit Line (Regression Line)</h3>
+<p>We start with an attempt to construct a <a href="javascript:sesame('linearDemand.html',400,300)">linear demand function</a>.
+Suppose that your market research of real estate investments reveals
+the following sales figures for new homes of different prices over the
+past year.
+</p>
+<p>
+</p><center>
+<table bgcolor="#fafafa" border="1" cellpadding="5">
+<tbody><tr>
+<td align="center"><b>Price (Thousands of $)</b></td>
+<td align="center">$150 - $169</td>
+<td align="center">$170 - $189</td>
+<td align="center">$190 - $209</td>
+<td align="center">$210 - $229</td>
+<td align="center">$230 - $249</td>
+<td align="center">$250 - $269</td>
+<td align="center">$270 - $289</td>
+</tr>
+<tr>
+<td align="center"><b>Sales of New Homes This Year</b></td>
+<td align="center">126</td>
+<td align="center">103</td>
+<td align="center">82</td>
+<td align="center">75</td>
+<td align="center">82</td>
+<td align="center">40</td>
+<td align="center">20</td>
+</tr>
+</tbody></table>
+</center>
+<p>If we simplify the situation by replacing each of the price ranges
+by a single price in the middle of the range, we get the following
+table:
+</p>
+<p>
+</p><center>
+<table bgcolor="#fafafa" border="1" cellpadding="5">
+<tbody><tr>
+<td align="center"><b>Price (Thousands of $)</b></td>
+<td align="center">$160</td>
+<td align="center">$180</td>
+<td align="center">$200</td>
+<td align="center">$220</td>
+<td align="center">$240</td>
+<td align="center">$260</td>
+<td align="center">$280</td>
+</tr>
+<tr>
+<td align="center"><b>Sales of New Homes This Year</b></td>
+<td align="center">126</td>
+<td align="center">103</td>
+<td align="center">82</td>
+<td align="center">75</td>
+<td align="center">82</td>
+<td align="center">40</td>
+<td align="center">20</td>
+</tr>
+</tbody></table>
+</center>
+<p>We would like to use these data to construct a demand function for
+the real estate market. (Recall that a demand function gives demand y,
+measured here by annual sales, as a function of unit price, x.) Here is
+a plot of y versus x.
+</p>
+<p></p><center><img src="regression_files/sales1.gif"></center><p></p>
+<p>The data definitely suggest a straight line, more-or-less, and hence
+a linear relationship between p and q. Here are several possible
+"straight line fits."
+</p><p></p><center><img src="regression_files/sales2.gif"></center><p></p>
+
+<p>
+<font size="+2" color="#aa00dd">Q </font> Which line best fits the data?
+<br><font size="+2" color="#aa00dd">A </font> We would like the sales predicted by the best-fit line (<b>predicted values</b>) to be as close to the actual sales (<b>observed values</b>)as
+possible. The differences between the predicted values and the observed
+values appear as the vertical distances shown in the figure below.
+</p>
+<p></p><center><img src="regression_files/sales3.gif"></center><p></p>
+
+<p>
+<font size="+2" color="#aa00dd">Q </font> Since we want the vertical
+distances to be as small as possible, why can't we set them all to zero
+and solve for the slope and intercept of the straight line?
+<br><font size="+2" color="#aa00dd">A </font> If this were possible,
+then there would be a straight line that passes through all the data
+points. A look at the graph shows that this is not the case.
+</p>
+
+<p>
+<font size="+2" color="#aa00dd">Q </font> Then why not find the line that minimizes <i>all</i> the vertical distances?
+<br><font size="+2" color="#aa00dd">A </font> This is not possible
+either. The line that minimizes the first two distances is the line
+that passes through the first two data points, since it makes the
+distances 0. But this line certainly does not minimize the distance to
+the third point. In other words, there is a trade-off: making some
+distances smaller makes others larger.
+</p>
+
+<p>
+<font size="+2" color="#aa00dd">Q </font> So what do we do?
+<br><font size="+2" color="#aa00dd">A </font> Since we cannot minimize <i>all</i>
+of the distances, we minimize some reasonable combination of them. Now,
+one reasonable combination of the distances would be their <i>sum</i>,
+but that turns out the be difficult to work with (because distances are
+measured in terms of absolute values). Instead, we use the sum of the <i>squares</i> of the distances (no absolute values required). The line that minimizes this sum is called the<b> best fit line</b>, <b>regression line,</b> or <b>least squares line</b> associated with the given data.
+</p>
+
+<p>
+<font size="+2" color="#aa00dd">Q </font> How do we obtain the equation of the best fit line?
+<br><font size="+2" color="#aa00dd">A </font> Following is the formula
+for the best fit straight line. To justify it requires some calculus.
+If you know about partial derivatives, consult the chapter on the
+calculus of several variables in <i><font color="#aa00dd">Calculus Applied to the Real World </font></i><font color="#aa00dd"></font> for a detailed explanation. 
+</p>
+<p>
+</p><center>
+<table width="95%" bgcolor="#fafafa" border="1">
+<tbody><tr><td>
+<b>Regression (Best Fit) Line</b>
+<p>The best fit line associated with the n points (x<sub>1</sub>, y<sub>1</sub>), (x<sub>2</sub>, y<sub>2</sub>), . . . , (x<sub>n</sub>, y<sub>n</sub>) has the form
+</p><ul>	y = mx + b
+</ul>
+where
+<ul>
+<table cellpadding="0"><tbody><tr><td>slope = m</td><td>=</td><td><table cellpadding="0"><tbody><tr><td><center>n(<img src="regression_files/SIG.GIF">xy) <font face="Symbol">-</font> (<img src="regression_files/SIG.GIF">x)(<img src="regression_files/SIG.GIF">y)<br><img src="regression_files/FR.GIF" width="100" height="1"><br>n(<img src="regression_files/SIG.GIF">x<sup>2</sup>) <font face="Symbol">-</font> (<img src="regression_files/SIG.GIF">x)<sup>2</sup></center></td></tr></tbody></table></td></tr></tbody></table>
+<br>
+<table cellpadding="0"><tbody><tr><td>intercept = b</td><td>=</td><td><table cellpadding="0"><tbody><tr><td><center><img src="regression_files/SIG.GIF">y <font face="Symbol">-</font> m(<img src="regression_files/SIG.GIF">x)<br><img src="regression_files/FR.GIF" width="60" height="1"><br>n</center></td></tr></tbody></table></td></tr></tbody></table>
+	
+</ul>
+
+Here, <img src="regression_files/SIG.GIF"> means "the sum of." Thus
+<ul><img src="regression_files/SIG.GIF">xy = sum of products = x<sub>1</sub>y<sub>1</sub> + x<sub>2</sub>y<sub>2</sub> + . . . + x<sub>n</sub>y<sub>n</sub>
+<br><img src="regression_files/SIG.GIF">x = sum of x-values = x<sub>1</sub> + x<sub>2</sub> + . . . + x<sub>n</sub>
+<br><img src="regression_files/SIG.GIF">y = sum of y-values = y<sub>1</sub> + y<sub>2</sub> + . . . + y<sub>n</sub>
+<br><img src="regression_files/SIG.GIF">x<sup>2</sup> = sum of squares of x-values  = x<sub>1</sub><sup>2</sup> + x<sub>2</sub><sup>2</sup>+ . . . + x<sub>n</sub><sup>2</sup>
+	
+</ul></td></tr>
+
+</tbody></table>
+</center>
+<p></p>
+
+<p>Using the formula above is easy, as the following example shows.</p>
+
+<p>
+<!--************* BEGIN EXAMPLE ********************-->
+<sub><img src="regression_files/exiconw.gif"></sub><font size="4" color="#aa00dd">
+<b> Example 1 </b><i>Computing a Regression Line by Hand</i></font>
+</p><p>Find the least squares line associated with the following data:
+</p><center>
+<table bgcolor="#fafafa" border="1" cellpadding="4">
+<tbody><tr>
+<td align="center"><b><b>x</b></b></td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td></tr>
+<tr><td align="center"><b><b>y</b></b></td><td align="center">1.5</td><td align="center">1.6</td><td align="center">2.1</td><td align="center">3.0</td>
+</tr>
+</tbody></table>
+</center>
+<p></p>
+<p><font color="#aa00dd"><b>Solution </b></font>In order to apply the formula, it is best to organize the data in a table as shown.
+</p><p>To complete the table, do the following:
+</p><ol type="1">
+	<li>Fill in the values for xy and x<sup>2</sup> in each row and press "Check."
+	</li><li>When all your entries are correct, press "Sum" to compute the sum in each column.
+	</li><li>To see the correct values, press "Help."
+</li></ol>
+<form name="theForm1">
+<center>
+<table bgcolor="#fafafa" border="1" cellpadding="0">
+<tbody><tr>
+<td></td>
+<td align="center"><b>x</b></td><td align="center"><b>y</b></td><td align="center"><b>xy</b></td><td align="center"><b>x<sup>2</sup></b></td>
+</tr>
+<tr>
+<td></td>
+<td align="center">1</td><td align="center">1.5</td><td align="center"><input size="4" value="" name="xy1" type="text"></td><td align="center"><input size="4" value="" name="xx1" type="text"></td><td align="center"><b><input value="Check" onclick="A(1)" type="button"></b></td><td align="center"><input size="7" value="" name="fb1" type="text"></td>
+</tr>
+<tr>
+<td></td>
+<td align="center">2</td><td align="center">1.6</td><td align="center"><input size="4" value="" name="xy2" type="text"></td><td align="center"><input size="4" value="" name="xx2" type="text"></td><td align="center"><b><input value="Check" onclick="A(2)" type="button"></b></td><td align="center"><input size="7" value="" name="fb2" type="text"></td>
+</tr>
+<tr>
+<td></td>
+<td align="center">3</td><td align="center">2.1</td><td align="center"><input size="4" value="" name="xy3" type="text"></td><td align="center"><input size="4" value="" name="xx3" type="text"></td><td align="center"><b><input value="Check" onclick="A(3)" type="button"></b></td><td align="center"><input size="7" value="" name="fb3" type="text"></td>
+</tr>
+<tr>
+<td></td>
+<td align="center">4</td><td align="center">3.0</td><td align="center"><input size="4" value="" name="xy4" type="text"></td><td align="center"><input size="4" value="" name="xx4" type="text"></td><td align="center"><b><input value="Check" onclick="A(4)" type="button"></b></td><td align="center"><input size="7" value="" name="fb4" type="text"></td>
+</tr>
+<tr><td align="center"><b><input value="Sums" onclick="calc(1)" type="button"></b></td><td align="center"><img src="regression_files/SIG.GIF">x = 10</td><td align="center"><img src="regression_files/SIG.GIF">y = 8.2</td><td align="center"><img src="regression_files/SIG.GIF">xy = <input size="4" value="" name="sxy" type="text"></td><td align="center"><img src="regression_files/SIG.GIF">x<sup>2</sup> = <input size="4" value="" name="sxx" type="text"></td>
+<td align="center"><b><input value="Help" onclick="calc(2)" type="button"></b></td>
+<td align="center"><b><input value="Clear" onclick="clearForms()" type="button"></b></td>
+</tr>
+</tbody></table>
+</center>
+</form>
+<p></p>
+
+<p>Substituting the correct values from the above table into the formula gives
+</p><ul>
+<table cellpadding="0"><tbody><tr><td>slope = m</td><td>=</td><td><table cellpadding="0"><tbody><tr><td><center>n(<img src="regression_files/SIG.GIF">xy) <font face="Symbol">-</font> (<img src="regression_files/SIG.GIF">x)(<img src="regression_files/SIG.GIF">y)<br><img src="regression_files/FR.GIF" width="100" height="1"><br>n(<img src="regression_files/SIG.GIF">x<sup>2</sup>) <font face="Symbol">-</font> (<img src="regression_files/SIG.GIF">x)<sup>2</sup></center></td></tr></tbody></table></td>
+<td>=</td>
+<td><center>4(23) <font face="Symbol">-</font> (10)(8.2)<br><img src="regression_files/FR.GIF" width="70" height="1"><br>4(30) <font face="Symbol">-</font>  10<sup>2</sup></center></td>
+<td>=</td>
+<td>0.5</td>
+</tr></tbody></table>
+<br>
+<table cellpadding="0"><tbody><tr><td>intercept = b</td><td>=</td><td><table cellpadding="0"><tbody><tr><td><center><img src="regression_files/SIG.GIF">y <font face="Symbol">-</font> m(<img src="regression_files/SIG.GIF">x)<br><img src="regression_files/FR.GIF" width="60" height="1"><br>n</center></td></tr></tbody></table></td>
+<td>=</td>
+<td><center>8.2 <font face="Symbol">-</font> (0.5)(10)<br><img src="regression_files/FR.GIF" width="70" height="1"><br>4</center></td>
+<td>=</td>
+<td>0.8</td>
+</tr></tbody></table>
+</ul>
+<p></p>
+<p>
+Thus our least squares line is 
+
+		</p><ul>y = 0.5x + 0.8.</ul>
+<p></p>
+<p><font color="#aa00dd"><b>Before we go on...  </b></font>
+Here is a plot the data points and the least squares line.
+</p><p></p><center><img src="regression_files/example1.gif"></center><p></p>
+
+<p>Notice that the line doesn't pass through even one of the original
+points, and yet it is the straight line that best approximates them. </p>
+<hr>
+
+
+<p>Let us now return to the data on demand for real estate with which we began this topic.</p>
+<p>
+<!--************* BEGIN EXAMPLE 2 ********************-->
+<sub><img src="regression_files/exiconw.gif"></sub><font size="4" color="#330033">
+<b> Example 2 </b><i>Demand for Homes </i></font>
+</p><p>Find a linear demand equation that best fits the following data, and use it to predict annual sales of homes priced at $140,000.
+</p><p>
+</p><center>
+<table bgcolor="#fafafa" border="1" cellpadding="5">
+<tbody><tr>
+<td align="center"><b>x = Price (Thousands of $)</b></td>
+<td align="center">$160</td>
+<td align="center">$180</td>
+<td align="center">$200</td>
+<td align="center">$220</td>
+<td align="center">$240</td>
+<td align="center">$260</td>
+<td align="center">$280</td>
+</tr>
+<tr>
+<td align="center"><b>y = Sales of New Homes This Year</b></td>
+<td align="center">126</td>
+<td align="center">103</td>
+<td align="center">82</td>
+<td align="center">75</td>
+<td align="center">82</td>
+<td align="center">40</td>
+<td align="center">20</td>
+</tr>
+</tbody></table>
+</center>
+<p></p>
+<p><font color="#aa00dd"><b>Solution </b></font> Here is the table we use to organize the calculations. </p>
+
+<p>
+</p><center>
+<table border="1" cellpadding="2">
+<tbody><tr>
+<td align="center"></td><td align="center"><b>x</b></td><td align="center"><b>y</b></td><td align="center"><b>xy</b></td><td align="center"><b>x<sup>2</sup></b></td></tr>
+<tr><td align="center"></td><td align="center">160</td><td align="center">126</td><td align="center">20,160</td><td align="center">25,600</td></tr>
+<tr><td align="center"></td><td align="center">180</td><td align="center">103</td><td align="center">18,540</td><td align="center">32,400</td></tr>
+<tr><td align="center"></td><td align="center">200</td><td align="center">82</td><td align="center">16,400</td><td align="center">40,000</td></tr>
+<tr><td align="center"></td><td align="center">220</td><td align="center">75</td><td align="center">16,500</td><td align="center">48,400</td></tr>
+<tr><td align="center"></td><td align="center">240</td><td align="center">82</td><td align="center">19,680</td><td align="center">57,600</td></tr>
+<tr><td align="center"></td><td align="center">260</td><td align="center">40</td><td align="center">10,400</td><td align="center">67,600</td></tr>
+<tr><td align="center"></td><td align="center">280</td><td align="center">20</td><td align="center">5,600</td><td align="center">78,400</td></tr>
+<tr><td align="center"><b>Sums</b></td><td align="center"><img src="regression_files/SIG.GIF">x = 1,540</td><td align="center"><img src="regression_files/SIG.GIF">y = 528</td><td align="center"><img src="regression_files/SIG.GIF">xy = 107,280</td><td align="center"><img src="regression_files/SIG.GIF">x<sup>2</sup> = 350,000</td>
+</tr>
+</tbody></table>
+</center>
+<p></p>
+<p>
+
+Substituting these values in the formula gives (n = 7)
+
+</p><ul>
+<table cellpadding="0"><tbody><tr><td>slope = m</td><td>=</td><td><table cellpadding="0"><tbody><tr><td><center>n(<img src="regression_files/SIG.GIF">xy) <font face="Symbol">-</font> (<img src="regression_files/SIG.GIF">x)(<img src="regression_files/SIG.GIF">y)<br><img src="regression_files/FR.GIF" width="100" height="1"><br>n(<img src="regression_files/SIG.GIF">x<sup>2</sup>) <font face="Symbol">-</font> (<img src="regression_files/SIG.GIF">x)<sup>2</sup></center></td></tr></tbody></table></td>
+<td>=</td>
+<td><center>7(107,280) <font face="Symbol">-</font> (1,540)(528)<br><img src="regression_files/FR.GIF" width="130" height="1"><br>7(350,000) <font face="Symbol">-</font>  1,540<sup>2</sup></center></td>
+<td><img src="regression_files/APR.GIF"></td>
+<td><font face="Symbol">-</font>0.7929</td>
+</tr></tbody></table>
+<br>
+<table cellpadding="0"><tbody><tr><td>intercept = b</td><td>=</td><td><table cellpadding="0"><tbody><tr><td><center><img src="regression_files/SIG.GIF">y <font face="Symbol">-</font> m(<img src="regression_files/SIG.GIF">x)<br><img src="regression_files/FR.GIF" width="60" height="1"><br>n</center></td></tr></tbody></table></td>
+<td>=</td>
+<td><center>528 <font face="Symbol">-</font>(<font face="Symbol">-</font> 0.7928571429)(1,540)<br><img src="regression_files/FR.GIF" width="160" height="1"><br>7</center></td>
+<td><img src="regression_files/APR.GIF"></td>
+<td>249.9</td>
+</tr></tbody></table>
+</ul>
+<p></p>
+<p>
+Notice that we used the most accurate value, m = <font face="Symbol">-</font>0.7928571429, that we could obtain on our calculator in the formula for b rather than the rounded value  <font face="Symbol">-</font>0.7929. This illustrates the following important general guideline:
+</p><p></p><ul><font color="#cc0099">
+When calculating, never round intermediate results. Rather, use the
+most accuate results obtainable, or have your calculator store them for
+you.
+</font></ul><p></p>
+<p>
+Thus our least squares line is 
+</p>
+<p></p><ul>
+		y = <font face="Symbol">-</font>0.7929x + 249.9.
+</ul><p></p>
+<p>We can now use this equation to predict the annual sales of homes
+priced at $140,000, as we were asked to do. Remembering that x is the
+price in thousands of dollars, we set x = 140, and solve for y, getting
+y <img src="regression_files/APR.GIF">139. Thus our model predicts that approximately 139 homes will have been sold in the range $140,000-$159,000.
+
+</p><p><font color="#aa00dd"><b>Before we go on... </b></font> We must
+remember that these figures were for sales in a range of prices. For
+instance, it would be extremely unlikely that 139 homes would have been
+sold at exactly $140,000. On the other hand, it does predict that, were
+we to place 139 homes on the market at $140,000, we could expect to
+sell them all</p>
+
+<p>Here is the original data, together with the least squares line.</p>
+
+<p></p><center><img src="regression_files/sales4.gif"></center><p></p>
+
+<hr>
+<!-- ******* END OF EXAMPLE *************************-->
+
+<p><font size="+2" color="#aa00dd">Q </font> If the given data points all happen to lie on a straight line, is this the line we get by the best fit method?
+<br><font size="+2" color="#aa00dd">A </font> Yes. This has the
+following implication: you can use linear regression on a graphing
+calculator to check your calculations of the equation of a straight
+line passing through two specified points. </p><p><font size="+2" color="#aa00dd">Q </font>If the given points
+do not lie on a straight line, is there a way we can tell how far off
+they are from lying on a straight line?
+<br><font size="+2" color="#aa00dd">A </font> There is a way of
+measuring the "goodness of fit" of the least squares line, called the
+coefficient of correlation. This is a number r between -1 and 1. the
+closer it is to -1 or 1, the better the fit. For an exact fit, we would
+have r = -1 (for a negative slope line) or r = 1 (for a positive slope
+line). For a bad fit, we would have r close to 0. The figure below
+shows several collections of data points with best-fit lines and
+corresponding values of r.
+</p><p></p><center><img src="regression_files/r.gif"></center><p></p>
+
+
+<p>The correlation coefficient can be calculated with the following
+formula. (To justify this formula requires a fair knowledge of
+statistics, so we shall not attempt to do so here.)</p>
+
+<center><table bgcolor="#fafafa" border="1" cellpadding="5">
+<tbody><tr><td><b> Coefficient of Correlation</b>
+<p> &nbsp; 
+
+<table cellpadding="0"><tbody><tr><td>Coefficient of Correlation = r</td><td>=</td><td><table cellpadding="0"><tbody><tr><td><center>n(<img src="regression_files/SIG.GIF">xy) <font face="Symbol">-</font> (<img src="regression_files/SIG.GIF">x)(<img src="regression_files/SIG.GIF">y)<br><img src="regression_files/FR.GIF" width="200" height="1"><br>
+[n(<img src="regression_files/SIG.GIF">x<sup>2</sup>) <font face="Symbol">-</font> (<img src="regression_files/SIG.GIF">x)<sup>2</sup>]<sup>0.5</sup> 
+[n(<img src="regression_files/SIG.GIF">y<sup>2</sup>) <font face="Symbol">-</font> (<img src="regression_files/SIG.GIF">y)<sup>2</sup>]<sup>0.5</sup>
+</center></td></tr></tbody></table></td>
+</tr></tbody></table>
+
+</p></td></tr></tbody></table>
+</center>
+<hr>
+
+<h3>2. Best Fit Exponential Curve (Regression Exponential Curve)</h3>
+
+<p><font size="+2" color="#aa00dd">Q </font> Now we know how to fit a straight line to given data. What about an exponential curve, of the form
+	</p><p></p><ul>q = Ar<sup>t</sup> ?</ul>
+<font size="+2" color="#aa00dd">A </font> The idea is to convert an exponential curve to a linear one, using the logarithm, as follows.
+
+<p>Start with the exponential function
+</p><p></p><ul>q = Ar<sup>t</sup>,</ul><p></p>
+<p>and take the logarithm of both sides:
+</p><p></p><ul>log(q) = log(Ar<sup>t</sup>).</ul><p></p>
+<p>The properties of logarithms give
+</p><p></p><ul>log(q) = log(A) + log(r<sup>t</sup>)</ul><p></p>
+or
+<p></p><ul> log(q) = log(A) + t log(r).</ul><p></p>
+<p>This expresses log(q) as a linear function of t, with 
+</p><ul>slope = m = log(r)
+<br>Intercept = b = log(A).</ul>
+<p>Therefore, if we find the best-fit line using log(q) as a function
+of t, the slope and intercept will be given as above, and so we can
+obtain r and A by
+</p><ul>r = 10<sup>m</sup>
+<br>A = 10<sup>b</sup>.</ul>
+<p></p>
+
+<p>To summarize,
+
+</p><p>
+</p><center>
+<table bgcolor="#fafafa" border="1" cellpadding="5">
+<tbody><tr>
+<td>
+<font color="#aa00dd"><b>Exponential Regression</b></font>
+<p>To obtain a best-fit exponential curve of the form
+	</p><p></p><ul>q = Ar<sup>t</sup>:</ul>
+<ol type="1">
+<li>Take y = log(q), and x = t.</li>
+<li>Find the regression line y = mx + b for the data (x, y).</li>
+<li>The desired exponential model is
+	<ul>q = Ar<sup>t</sup>,</ul>
+where r = 10<sup>m</sup>, and A = 10<sup>b</sup>.</li>
+</ol>
+</td>
+</tr>
+</tbody></table>
+</center>
+<p></p>
+
+
+<hr>
+
+<!--************* BEGIN EXAMPLE 3 ********************-->
+<sub><img src="regression_files/exiconw.gif"></sub><font size="4" color="#330033">
+<b> Example 3 </b><i>Sales of Compaq </i></font>
+<p>Revenues from sales of Compaq computers are shown in the following
+table, where x represents time in years since 1990.* Obtain an
+exponential regression model for the data.
+</p><p>
+</p><center>
+<table bgcolor="#fafafa" border="1" cellpadding="5">
+<tbody><tr>
+<td align="center"><b>t = Year (1990 = 0)</b></td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="center"><b>R = Revenue ($ billion)</b></td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">11</td>
+<td align="center">25</td>
+</tr>
+</tbody></table>
+</center>
+<p></p>
+
+<p><font size="-1">* Data are rounded. Source: Company Reports/<i>The New York Times,</i> January 27, 1998, p. D1.</font></p>
+
+
+<p><font color="#aa00dd"><b>Solution </b></font> Since we need to model
+log(R) as a linear function of t, we first make a table with x = t and
+y = log(R), and then calculate the regression line, y = mx + b. </p><p>
+</p><center>
+<table bgcolor="#fafafa" border="1" cellpadding="5">
+<tbody><tr>
+<td align="center"><b>x (= t)</b></td>
+<td align="center">0</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">7</td>
+</tr>
+<tr>
+<td align="center"><b>y (= log(R))</b></td>
+<td align="center">0.477121</td>
+<td align="center">0.602060</td>
+<td align="center">1.04139</td>
+<td align="center">1.39794</td>
+</tr>
+</tbody></table>
+</center>
+<p></p>
+<p> Instead of doing this calculation by hand as we did in the above examples, you can do it automatically using the <a href="http://people.hofstra.edu/Stefan_Waner/realworld/regression.html" target="_blank">on-line regression utility</a>.
+Just enter the x- and y-values in the table, and press the "y = mx+b"
+button. (Yes, that utility does exponential regression as well, but we
+would like you to know how it works!)
+</p>
+<p>
+The linear regression model we obtain is 
+</p>
+<p></p><ul>
+		y = 0.13907x + 0.42765.
+</ul><p></p>
+<p>Thus, the desired exponential model is
+	</p><ul>R = Ar<sup>t</sup>,</ul>
+where r = 10<sup>m</sup> = 10<sup>0.13907</sup> <img src="regression_files/APR.GIF"> 1.3774, and A = 10<sup>0.42765</sup>.<img src="regression_files/APR.GIF"> 2.6770.
+<p>This gives our revenue model as
+</p><ul>
+R = 2.6770 (1.3774)<sup>t</sup>.
+</ul>
+
+<p><font color="#aa00dd"><b>Before we go on... </b></font>
+Go to the <a href="http://people.hofstra.edu/Stefan_Waner/realworld/regression.html" target="_blank">on-line regression utility</a>, enter the original data (before you took the logarithms) and press the "y = a(b^x)" button. What do you find?
+<!--*********** END OF EXAMPLE 3 *********-->
+</p><hr>
+
+<h3>3. Other Forms of Regression</h3>
+At the on-line regression utility, you can also find best-fit curves of the following forms:
+<p></p>
+<p>
+</p><ul>
+<table>
+<tbody><tr>
+	<td>y = ax<sup>2</sup> + bx + c</td><td>&nbsp; &nbsp; </td><td><font color="#9999ff">Quadratic regression</font></td>
+</tr>
+<tr>
+	<td>y = ax<sup>3</sup> + bx<sup>2</sup> + cx + d</td><td>&nbsp; &nbsp; </td><td><font color="#9999ff">Cubic regression</font></td>
+</tr>
+
+</tbody></table>
+</ul>
+<p>On the TI-83, you will find all of these, as well as the following</p>
+<p>
+</p><ul>
+<table>
+<tbody><tr>
+	<td>y = ax<sup>4</sup> + bx<sup>3</sup> + cx<sup>2</sup> + dx + e</td><td>&nbsp; &nbsp; </td><td><font color="#9999ff">Quartic regression</font></td>
+</tr>
+<tr>
+	<td>y = ax<sup>b</sup> </td><td>&nbsp; &nbsp; </td><td><font color="#9999ff">Power regression</font></td>
+</tr>
+<tr>
+	<td>y = asin(bx+c) + d</td><td>&nbsp; &nbsp; </td><td><font color="#9999ff">Sine regression</font></td>
+</tr>
+</tbody></table>
+</ul>
+
+<!-- *** Links Here-->
+<p></p><center><img src="regression_files/whiteline.gif"></center>
+<p>
+</p><center>
+<table>
+<tbody><tr>
+
+<td>
+<a href="http://people.hofstra.edu/Stefan_Waner/realworld/index.html" target="_top"><font size="2" color="#550000" face="arial, helvetica, sans-serif"><b>Return to Main Page</b></font><b></b></a>
+<b><br>
+<a href="http://people.hofstra.edu/Stefan_Waner/realworld/textindex.html"><font size="2" color="#550000" face="arial, helvetica, sans-serif"><b>Index of On-Line Topics</b></font><b></b></a>
+<br>
+<a href="http://people.hofstra.edu/Stefan_Waner/realworld/calctopic1/regressionex.html"><font size="2" color="#550000" face="arial, helvetica, sans-serif"><b>Exercises for This Topic</b></font></a>
+<br> <a href="http://people.hofstra.edu/Stefan_Waner/realworld/newgraph/regressionframes.html" target="_blank"><font color="tomato" face="times, times new roman"><b>Utility: </b></font><font size="2" color="#550000" face="arial, helvetica, sans-serif"><b>On-Line Regression Utilty</b></font></a>
+<br><a href="http://people.hofstra.edu/Stefan_Waner/realworld/tccalcp.html"><font size="2" color="#009922" face="arial, Finite Math, sans-serif"><b>Everything for Calculus</b></font></a>
+
+<br><a href="http://people.hofstra.edu/Stefan_Waner/realworld/tcfinitep.html"><font size="2" color="crimson" face="arial, helvetica, sans-serif"><b>Everything for Finite Math</b></font></a>
+
+<br><a href="http://people.hofstra.edu/Stefan_Waner/realworld/tccombop.html"><font size="2" color="blue" face="arial, helvetica, sans-serif"><b>Everything for Finite Math &amp; Calculus</b></font></a>
+</b></td>
+
+
+</tr>
+</tbody></table>
+
+</center>
+
+<p></p><center><img src="regression_files/whiteline.gif"></center>
+<!-- *** End of links-->
+
+<center>Last Updated:<i>February, 1998</i></center>
+<center> Copyright © 1998 StefanWaner and Steven R. Costenoble </center>
+</body></html>

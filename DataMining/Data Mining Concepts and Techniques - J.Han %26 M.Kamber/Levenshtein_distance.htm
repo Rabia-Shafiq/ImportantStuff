@@ -1,0 +1,644 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+
+
+<title>Levenshtein distance - Wikipedia, the free encyclopedia</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="generator" content="MediaWiki 1.16wmf4">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit">
+<link rel="apple-touch-icon" href="http://en.wikipedia.org/apple-touch-icon.png">
+<link rel="shortcut icon" href="http://en.wikipedia.org/favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="stylesheet" href="Levenshtein_distance_files/shared.css" type="text/css" media="screen">
+<link rel="stylesheet" href="Levenshtein_distance_files/commonPrint.css" type="text/css" media="print">
+<link rel="stylesheet" href="Levenshtein_distance_files/main_002.css" type="text/css" media="screen">
+<link rel="stylesheet" href="Levenshtein_distance_files/main.css" type="text/css" media="handheld">
+<!--[if lt IE 5.5000]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE50Fixes.css?270z53" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 5.5000]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE55Fixes.css?270z53" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 6]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE60Fixes.css?270z53" type="text/css" media="screen" /><![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="http://bits.wikimedia.org/skins-1.5/monobook/IE70Fixes.css?270z53" type="text/css" media="screen" /><![endif]-->
+<link rel="stylesheet" href="Levenshtein_distance_files/index_003.css" type="text/css" media="all">
+<link rel="stylesheet" href="Levenshtein_distance_files/index_005.css" type="text/css" media="print">
+<link rel="stylesheet" href="Levenshtein_distance_files/index_002.css" type="text/css" media="handheld">
+<link rel="stylesheet" href="Levenshtein_distance_files/index_004.css" type="text/css" media="all">
+<link rel="stylesheet" href="Levenshtein_distance_files/index.css" type="text/css" media="all">
+<script type="text/javascript">
+var skin="monobook",
+stylepath="http://bits.wikimedia.org/skins-1.5",
+wgUrlProtocols="http\\:\\/\\/|https\\:\\/\\/|ftp\\:\\/\\/|irc\\:\\/\\/|gopher\\:\\/\\/|telnet\\:\\/\\/|nntp\\:\\/\\/|worldwind\\:\\/\\/|mailto\\:|news\\:|svn\\:\\/\\/",
+wgArticlePath="/wiki/$1",
+wgScriptPath="/w",
+wgScriptExtension=".php",
+wgScript="/w/index.php",
+wgVariantArticlePath=false,
+wgActionPaths={},
+wgServer="http://en.wikipedia.org",
+wgCanonicalNamespace="",
+wgCanonicalSpecialPageName=false,
+wgNamespaceNumber=0,
+wgPageName="Levenshtein_distance",
+wgTitle="Levenshtein distance",
+wgAction="view",
+wgArticleId=406418,
+wgIsArticle=true,
+wgUserName=null,
+wgUserGroups=null,
+wgUserLanguage="en",
+wgContentLanguage="en",
+wgBreakFrames=false,
+wgCurRevisionId=356044817,
+wgVersion="1.16wmf4",
+wgEnableAPI=true,
+wgEnableWriteAPI=true,
+wgSeparatorTransformTable=["", ""],
+wgDigitTransformTable=["", ""],
+wgMainPageTitle="Main Page",
+wgFormattedNamespaces={"-2": "Media", "-1": "Special", "0": "", "1": "Talk", "2": "User", "3": "User talk", "4": "Wikipedia", "5": "Wikipedia talk", "6": "File", "7": "File talk", "8": "MediaWiki", "9": "MediaWiki talk", "10": "Template", "11": "Template talk", "12": "Help", "13": "Help talk", "14": "Category", "15": "Category talk", "100": "Portal", "101": "Portal talk", "108": "Book", "109": "Book talk"},
+wgNamespaceIds={"media": -2, "special": -1, "": 0, "talk": 1, "user": 2, "user_talk": 3, "wikipedia": 4, "wikipedia_talk": 5, "file": 6, "file_talk": 7, "mediawiki": 8, "mediawiki_talk": 9, "template": 10, "template_talk": 11, "help": 12, "help_talk": 13, "category": 14, "category_talk": 15, "portal": 100, "portal_talk": 101, "book": 108, "book_talk": 109, "wp": 4, "wt": 5, "image": 6, "image_talk": 7},
+wgSiteName="Wikipedia",
+wgCategories=["Articles needing additional references from February 2010", "All articles needing additional references", "Algorithms on strings", "String similarity measures", "Dynamic programming", "Articles with example pseudocode"],
+wgMWSuggestTemplate="http://en.wikipedia.org/w/api.php?action=opensearch\x26search={searchTerms}\x26namespace={namespaces}\x26suggest",
+wgDBname="enwiki",
+wgSearchNamespaces=[0],
+wgMWSuggestMessages=["with suggestions", "no suggestions"],
+wgRestrictionEdit=[],
+wgRestrictionMove=[],
+wgTrackingToken="6b44be7768e9dbfc4feeca94da109bd4",
+wgClickTrackingIsThrottled=true,
+wgNotice="",
+wgNoticeLocal="";
+</script><script src="Levenshtein_distance_files/wikibits.js" type="text/javascript"></script>
+<script src="Levenshtein_distance_files/ajax.js" type="text/javascript"></script>
+<script src="Levenshtein_distance_files/mwsuggest.js" type="text/javascript"></script>
+<script type="text/javascript" src="Levenshtein_distance_files/centralnotice.js"></script><style type="text/css">
+#centralNotice .siteNoticeSmall{display:none;}
+#centralNotice .siteNoticeSmallAnon{display:none;}
+#centralNotice .siteNoticeSmallUser{display:none;}
+#centralNotice.collapsed .siteNoticeBig{display:none;}
+#centralNotice.collapsed .siteNoticeSmall{display:block;}
+#centralNotice.collapsed .siteNoticeSmallUser{display:block;}
+#centralNotice.collapsed .siteNoticeSmallAnon{display:block;}
+#centralNotice.anonnotice .siteNoticeSmallUser{display:none !important;}
+#centralNotice.usernotice .siteNoticeSmallAnon{display:none !important;}
+</style>
+
+
+<script src="Levenshtein_distance_files/index.php" type="text/javascript"></script><script type="text/javascript" src="Levenshtein_distance_files/index_002.php"></script>
+
+</head><body class="mediawiki ltr ns-0 ns-subject page-Levenshtein_distance skin-monobook">
+<div id="globalWrapper">
+<div id="column-content"><div id="content"><div style="border: 1px solid gray; margin: 0px; padding: 0px; visibility: hidden; display: none; width: 602px; height: 402px; background-color: white; position: absolute; right: 2em; top: 1em; z-index: 13;"><iframe style="margin: 0px; padding: 0px; z-index: 14; position: absolute; right: 1px; top: 1px; width: 600px; height: 400px;" scrolling="no" frameborder="0"></iframe><img style="z-index: 15; position: absolute; right: 11px; top: 9px; width: 18px; cursor: pointer;" src="Levenshtein_distance_files/Button_hide.png" title="close"></div>
+	<a id="top"></a>
+	<div id="siteNotice"><script type="text/javascript">if (wgNotice != '') document.writeln(wgNotice);</script></div>
+	<h1 id="firstHeading" class="firstHeading">Levenshtein distance</h1>
+	<div id="bodyContent">
+		<h3 id="siteSub">From Wikipedia, the free encyclopedia</h3>
+		<div id="contentSub"></div>
+		<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>
+		<!-- start content -->
+<table class="metadata plainlinks ambox ambox-content" style="">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width: 52px;"><a href="http://en.wikipedia.org/wiki/File:Question_book-new.svg" class="image"><img alt="Question book-new.svg" src="Levenshtein_distance_files/50px-Question_book-new.png" width="50" height="39"></a></div>
+</td>
+<td class="mbox-text" style="">This article <b>needs additional <a href="http://en.wikipedia.org/wiki/Wikipedia:Citing_sources#Inline_citations" title="Wikipedia:Citing sources">citations</a> for <a href="http://en.wikipedia.org/wiki/Wikipedia:Verifiability" title="Wikipedia:Verifiability">verification</a>.</b><br>
+<small>Please help <a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit" class="external text" rel="nofollow">improve this article</a> by adding <a href="http://en.wikipedia.org/wiki/Wikipedia:Identifying_reliable_sources" title="Wikipedia:Identifying reliable sources">reliable references</a>. Unsourced material may be <a href="http://en.wikipedia.org/wiki/Template:Citation_needed" title="Template:Citation needed">challenged</a> and <a href="http://en.wikipedia.org/wiki/Wikipedia:Verifiability#Burden_of_evidence" title="Wikipedia:Verifiability">removed</a>. <small><i>(February 2010)</i></small></small></td>
+</tr>
+</tbody></table>
+<p>In <a href="http://en.wikipedia.org/wiki/Information_theory" title="Information theory">information theory</a> and <a href="http://en.wikipedia.org/wiki/Computer_science" title="Computer science">computer science</a>, the <b>Levenshtein distance</b> is a <a href="http://en.wikipedia.org/wiki/String_metric" title="String metric">metric</a> for measuring the amount of difference between two sequences (i.e., an <a href="http://en.wikipedia.org/wiki/Edit_distance" title="Edit distance">edit distance</a>). The term <b>edit distance</b> is often used to refer specifically to Levenshtein distance.</p>
+<p>The Levenshtein distance between two <a href="http://en.wikipedia.org/wiki/String_%28computer_science%29" title="String (computer science)">strings</a>
+is defined as the minimum number of edits needed to transform one
+string into the other, with the allowable edit operations being
+insertion, deletion, or substitution of a single character. It is named
+after <a href="http://en.wikipedia.org/wiki/Vladimir_Levenshtein" title="Vladimir Levenshtein">Vladimir Levenshtein</a>, who considered this distance in 1965.<sup id="cite_ref-0" class="reference"><a href="#cite_note-0"><span>[</span>1<span>]</span></a></sup></p>
+<table id="toc" class="toc">
+<tbody><tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+ <span class="toctoggle">[<a href="javascript:toggleToc()" class="internal" id="togglelink">hide</a>]</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Example"><span class="tocnumber">1</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Applications"><span class="tocnumber">2</span> <span class="toctext">Applications</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Relationship_with_other_edit_distance_metrics"><span class="tocnumber">3</span> <span class="toctext">Relationship with other edit distance metrics</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Computing_Levenshtein_distance"><span class="tocnumber">4</span> <span class="toctext">Computing Levenshtein distance</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="#Proof_of_correctness"><span class="tocnumber">4.1</span> <span class="toctext">Proof of correctness</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="#Possible_improvements"><span class="tocnumber">4.2</span> <span class="toctext">Possible improvements</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="#Upper_and_lower_bounds"><span class="tocnumber">4.3</span> <span class="toctext">Upper and lower bounds</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Notes"><span class="tocnumber">6</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#External_links"><span class="tocnumber">7</span> <span class="toctext">External links</span></a></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<script type="text/javascript">
+//<![CDATA[
+if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } 
+//]]>
+</script>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=1" title="Edit section: Example">edit</a>]</span> <span class="mw-headline" id="Example">Example</span></h2>
+<p>For example, the Levenshtein distance between "kitten" and "sitting"
+is 3, since the following three edits change one into the other, and
+there is no way to do it with fewer than three edits:</p>
+<ol>
+<li>kitten → sitten (substitution of 's' for 'k')</li>
+<li>sitten → sittin (substitution of 'i' for 'e')</li>
+<li>sittin → sitting (insert 'g' at the end).</li>
+</ol>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=2" title="Edit section: Applications">edit</a>]</span> <span class="mw-headline" id="Applications">Applications</span></h2>
+<p>In <a href="http://en.wikipedia.org/wiki/Approximate_string_matching" title="Approximate string matching">approximate string matching</a>,
+the objective is to find matches for short strings, for instance,
+strings from a dictionary, in many longer texts, in situations where a
+small number of differences is to be expected. Here, one of the strings
+is typically short, while the other is arbitrarily long. This has a
+wide range of applications, for instance, <a href="http://en.wikipedia.org/wiki/Spell_checker" title="Spell checker">spell checkers</a>, correction systems for <a href="http://en.wikipedia.org/wiki/Optical_character_recognition" title="Optical character recognition">optical character recognition</a>, and software to assist natural language translation based on <a href="http://en.wikipedia.org/wiki/Translation_memory" title="Translation memory">translation memory</a>.</p>
+<p>The Levenshtein distance can also be computed between two longer
+strings, but the cost to compute it, which is roughly proportional to
+the product of the two string lengths, makes this impractical.</p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=3" title="Edit section: Relationship with other edit distance metrics">edit</a>]</span> <span class="mw-headline" id="Relationship_with_other_edit_distance_metrics">Relationship with other edit distance metrics</span></h2>
+<p>Levenshtein distance is not the only popular notion of edit
+distance. Variations can be obtained by changing the set of allowable
+edit operations: for instance,</p>
+<ul>
+<li>length of the <a href="http://en.wikipedia.org/wiki/Longest_common_subsequence_problem" title="Longest common subsequence problem">longest common subsequence</a> is the metric obtained by allowing only addition and deletion, not substitution;</li>
+<li>the <a href="http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance" title="Damerau–Levenshtein distance">Damerau–Levenshtein distance</a> allows addition, deletion, substitution, and the <a href="http://en.wikipedia.org/wiki/Transposition" title="Transposition">transposition</a> of two adjacent characters;</li>
+<li>the <a href="http://en.wikipedia.org/wiki/Hamming_distance" title="Hamming distance">Hamming distance</a> only allows substitution (and hence, only applies to strings of the same length).</li>
+</ul>
+<p><a href="http://en.wikipedia.org/wiki/Edit_distance" title="Edit distance">Edit distance</a>
+in general is usually defined as a parametrizable metric in which a
+repertoire of edit operations is available, and each operation is
+assigned a cost (possibly infinite). This is further generalized by DNA
+<a href="http://en.wikipedia.org/wiki/Sequence_alignment" title="Sequence alignment">sequence alignment</a> algorithms such as the <a href="http://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm" title="Smith–Waterman algorithm">Smith–Waterman algorithm</a>, which make an operation's cost depend on where it is applied.</p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=4" title="Edit section: Computing Levenshtein distance">edit</a>]</span> <span class="mw-headline" id="Computing_Levenshtein_distance">Computing Levenshtein distance</span></h2>
+<p>A commonly-used bottom-up <a href="http://en.wikipedia.org/wiki/Dynamic_programming" title="Dynamic programming">dynamic programming</a> algorithm for computing the Levenshtein distance involves the use of an (<var>n</var> + 1) × (<var>m</var> + 1) <a href="http://en.wikipedia.org/wiki/Matrix_%28mathematics%29" title="Matrix (mathematics)">matrix</a>, where <var>n</var> and <var>m</var> are the lengths of the two strings. This algorithm is based on the <a href="http://en.wikipedia.org/w/index.php?title=Wagner-Fisher_algorithm&amp;action=edit&amp;redlink=1" class="new" title="Wagner-Fisher algorithm (page does not exist)">Wagner-Fisher algorithm</a><sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span>[</span>2<span>]</span></a></sup> for edit distance. Here is <a href="http://en.wikipedia.org/wiki/Pseudocode" title="Pseudocode">pseudocode</a> for a function <i>LevenshteinDistance</i> that takes two strings, <i>s</i> of length <i>m</i>, and <i>t</i> of length <i>n</i>, and computes the Levenshtein distance between them:</p>
+<pre> <b>int</b> LevenshteinDistance(<b>char</b> s[1..m], <b>char</b> t[1..n])
+ <b>{</b>
+   <i>// d is a table with m+1 rows and n+1 columns</i>
+   <b>declare</b> <b>int</b> d[0..m, 0..n]
+  
+   <b>for</b> i <b>from</b> 0 <b>to</b> m
+     d[i, 0] := i <i>// deletion</i>
+   <b>for</b> j <b>from</b> 0 <b>to</b> n
+     d[0, j] := j <i>// insertion</i>
+  
+   <b>for</b> j <b>from</b> 1 <b>to</b> n
+   <b>{</b>
+     <b>for</b> i <b>from</b> 1 <b>to</b> m
+     <b>{</b>
+       <b>if</b> s[i] = t[j] <b>then</b> 
+         d[i, j] := d[i-1, j-1]
+       <b>else</b>
+         d[i, j] := minimum
+                    (
+                      d[i-1, j] + 1,  <i>// deletion</i>
+                      d[i, j-1] + 1,  <i>// insertion</i>
+                      d[i-1, j-1] + 1 <i>// substitution</i>
+                    )
+     <b>}</b>
+   <b>}</b>
+  
+   <b>return</b> d[m,n]
+ <b>}</b>
+</pre>
+<p>Two examples of the resulting matrix (hovering over a number reveals the operation performed to get that number):</p>
+<center>
+<table>
+<tbody><tr>
+<td>
+<table class="wikitable">
+<tbody><tr>
+<td></td>
+<td></td>
+<th>k</th>
+<th>i</th>
+<th>t</th>
+<th>t</th>
+<th>e</th>
+<th>n</th>
+</tr>
+<tr>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<th>s</th>
+<td>1</td>
+<td><span title="substitution of 'k' for 's'" style="border-bottom: 1px dotted;">1</span></td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<th>i</th>
+<td>2</td>
+<td>2</td>
+<td><span title="'i' equals 'i'" style="border-bottom: 1px dotted;">1</span></td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<th>t</th>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td><span title="'t' equals 't'" style="border-bottom: 1px dotted;">1</span></td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr>
+<th>t</th>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td><span title="'t' equals 't'" style="border-bottom: 1px dotted;">1</span></td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<th>i</th>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td><span title="substitution of 'e' for 'i'" style="border-bottom: 1px dotted;">2</span></td>
+<td>3</td>
+</tr>
+<tr>
+<th>n</th>
+<td>6</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td><span title="'n' equals 'n'" style="border-bottom: 1px dotted;">2</span></td>
+</tr>
+<tr>
+<th>g</th>
+<td>7</td>
+<td>7</td>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>4</td>
+<td><span title="delete 'g'" style="border-bottom: 1px dotted;">3</span></td>
+</tr>
+</tbody></table>
+</td>
+<td>
+<table class="wikitable">
+<tbody><tr>
+<td></td>
+<td></td>
+<th>S</th>
+<th>a</th>
+<th>t</th>
+<th>u</th>
+<th>r</th>
+<th>d</th>
+<th>a</th>
+<th>y</th>
+</tr>
+<tr>
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+<td>8</td>
+</tr>
+<tr>
+<th>S</th>
+<td>1</td>
+<td><span title="'S' equals 'S'" style="border-bottom: 1px dotted;">0</span></td>
+<td><span title="insert 'a'" style="border-bottom: 1px dotted;">1</span></td>
+<td><span title="insert 't'" style="border-bottom: 1px dotted;">2</span></td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr>
+<th>u</th>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td><span title="'u' equals 'u'" style="border-bottom: 1px dotted;">2</span></td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<th>n</th>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td><span title="substitution of 'r' for 'n'" style="border-bottom: 1px dotted;">3</span></td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+</tr>
+<tr>
+<th>d</th>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+<td><span title="'d' equals 'd'" style="border-bottom: 1px dotted;">3</span></td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr>
+<th>a</th>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td><span title="'a' equals 'a'" style="border-bottom: 1px dotted;">3</span></td>
+<td>4</td>
+</tr>
+<tr>
+<th>y</th>
+<td>6</td>
+<td>5</td>
+<td>4</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td><span title="'y' equals 'y'" style="border-bottom: 1px dotted;">3</span></td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+</center>
+<p>The <a href="http://en.wikipedia.org/wiki/Invariant_%28mathematics%29" title="Invariant (mathematics)">invariant</a> maintained throughout the algorithm is that we can transform the initial segment <code>s[1..i]</code> into <code>t[1..j]</code> using a minimum of <code>d[i,j]</code> operations. At the end, the bottom-right element of the array contains the answer.</p>
+<h3><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=5" title="Edit section: Proof of correctness">edit</a>]</span> <span class="mw-headline" id="Proof_of_correctness">Proof of correctness</span></h3>
+<p>As mentioned earlier, the <a href="http://en.wikipedia.org/wiki/Invariant_%28mathematics%29" title="Invariant (mathematics)">invariant</a> is that we can transform the initial segment <code>s[1..i]</code> into <code>t[1..j]</code> using a minimum of <code>d[i,j]</code> operations. This invariant holds since:</p>
+<ul>
+<li>It is initially true on row and column 0 because <code>s[1..i]</code> can be transformed into the empty string <code>t[1..0]</code> by simply dropping all <code>i</code> characters. Similarly, we can transform <code>s[1..0]</code> to <code>t[1..j]</code> by simply adding all <code>j</code> characters.</li>
+<li>The minimum is taken over three distances, each of which is feasible:
+<ul>
+<li>If we can transform <code>s[1..i]</code> to <code>t[1..j-1]</code> in <code>k</code> operations, then we can simply add <code>t[j]</code> afterwards to get <code>t[1..j]</code> in <code>k+1</code> operations.</li>
+<li>If we can transform <code>s[1..i-1]</code> to <code>t[1..j]</code> in <code>k</code> operations, then we can do the same operations on <code>s[1..i]</code> and then remove the original <code>s[i]</code> at the end in <code>k+1</code> operations.</li>
+<li>If we can transform <code>s[1..i-1]</code> to <code>t[1..j-1]</code> in <code>k</code> operations, we can do the same to <code>s[1..i]</code> and then do a substitution of <code>t[j]</code> for the original <code>s[i]</code> at the end if necessary, requiring <code>k+cost</code> operations.</li>
+</ul>
+</li>
+<li>The operations required to transform <code>s[1..n]</code> into <code>t[1..m]</code> is of course the number required to transform all of <code>s</code> into all of <code>t</code>, and so <code>d[n,m]</code> holds our result.</li>
+</ul>
+<p>This proof fails to validate that the number placed in <code>d[i,j]</code> is in fact minimal; this is more difficult to show, and involves an <a href="http://en.wikipedia.org/wiki/Reductio_ad_absurdum" title="Reductio ad absurdum">argument by contradiction</a> in which we assume <code>d[i,j]</code> is smaller than the minimum of the three, and use this to show one of the three is not minimal.</p>
+<h3><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=6" title="Edit section: Possible improvements">edit</a>]</span> <span class="mw-headline" id="Possible_improvements">Possible improvements</span></h3>
+<p>Possible improvements to this algorithm include:</p>
+<ul>
+<li>We can adapt the algorithm to use less space, <a href="http://en.wikipedia.org/wiki/Big_O_notation" title="Big O notation"><i>O</i></a>(<i>m</i>) instead of <i>O</i>(<i>mn</i>), since it only requires that the previous row and current row be stored at any one time.</li>
+<li>We can store the number of insertions, deletions, and substitutions
+separately, or even the positions at which they occur, which is always <code>j</code>.</li>
+<li>We can normalize the distance to the interval <code>[0,1]</code>.</li>
+<li>If we are only interested in the distance if it is smaller than a threshold <i>k</i>, then it suffices to compute a diagonal stripe of width <i>2k+1</i> in the matrix. In this way, the algorithm can be run in <a href="http://en.wikipedia.org/wiki/Big_O_notation" title="Big O notation"><i>O</i></a>(<i>kl</i>) time, where <i>l</i> is the length of the shortest string.<sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span>[</span>3<span>]</span></a></sup></li>
+<li>We can give different penalty costs to insertion, deletion and
+substitution. We can also give penalty costs that depend on which
+characters are inserted, deleted or substituted.</li>
+<li>By initializing the first row of the matrix with <i>0</i>, the algorithm can be used for <a href="http://en.wikipedia.org/wiki/Fuzzy_string_searching" title="Fuzzy string searching" class="mw-redirect">fuzzy string search</a> of a string in a text.<sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span>[</span>4<span>]</span></a></sup>
+This modification gives the end-position of matching substrings of the
+text. To determine the start-position of the matching substrings, the
+number of insertions and deletions can be stored separately and used to
+compute the start-position from the end-position.<sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span>[</span>5<span>]</span></a></sup></li>
+<li>This algorithm <a href="http://en.wikipedia.org/wiki/Parallel_computing" title="Parallel computing">parallelizes</a> poorly, due to a large number of <a href="http://en.wikipedia.org/wiki/Data_dependency" title="Data dependency">data dependencies</a>. However, all the <code>cost</code> values can be computed in parallel, and the algorithm can be adapted to perform the <code>minimum</code> function in phases to eliminate dependencies.</li>
+<li>By examining diagonals instead of rows, and by using <a href="http://en.wikipedia.org/wiki/Lazy_evaluation" title="Lazy evaluation">lazy evaluation</a>, we can find the Levenshtein distance in <i>O</i>(<i>m</i> (1 + <i>d</i>)) time (where <i>d</i> is the Levenshtein distance), which is much faster than the regular dynamic programming algorithm if the distance is small.<sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span>[</span>6<span>]</span></a></sup></li>
+</ul>
+<h3><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=7" title="Edit section: Upper and lower bounds">edit</a>]</span> <span class="mw-headline" id="Upper_and_lower_bounds">Upper and lower bounds</span></h3>
+<p>The Levenshtein distance has several simple upper and lower bounds
+that are useful in applications which compute many of them and compare
+them. These include:</p>
+<ul>
+<li>It is always at least the difference of the sizes of the two strings.</li>
+<li>It is at most the length of the longer string.</li>
+<li>It is zero if and only if the strings are identical.</li>
+<li>If the strings are the same size, the <a href="http://en.wikipedia.org/wiki/Hamming_distance" title="Hamming distance">Hamming distance</a> is an upper bound on the Levenshtein distance.</li>
+</ul>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=8" title="Edit section: See also">edit</a>]</span> <span class="mw-headline" id="See_also">See also</span></h2>
+<table class="metadata plainlinks mbox-small" style="border: 1px solid rgb(170, 170, 170); background-color: rgb(249, 249, 249);">
+<tbody><tr>
+<td class="mbox-image"><a href="http://en.wikibooks.org/wiki/Special:Search/Levenshtein_distance" title="Search Wikibooks"><img alt="Search Wikibooks" src="Levenshtein_distance_files/40px-Wikibooks-logo-en-noslogan.png" width="40" height="40"></a></td>
+<td class="mbox-text" style="">The Wikibook <i><a href="http://en.wikibooks.org/wiki/Algorithm_implementation" class="extiw" title="wikibooks:Algorithm implementation">Algorithm implementation</a></i> has a page on the topic of
+<div style="margin-left: 10px;"><i><b><a href="http://en.wikibooks.org/wiki/Algorithm_implementation/Strings/Levenshtein_distance" class="extiw" title="wikibooks:Algorithm implementation/Strings/Levenshtein distance">Levenshtein distance</a></b></i></div>
+</td>
+</tr>
+</tbody></table>
+<div style="-moz-column-count: 2;">
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Agrep" title="Agrep">agrep</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Bitap_algorithm" title="Bitap algorithm">Bitap algorithm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance" title="Damerau–Levenshtein distance">Damerau–Levenshtein distance</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Diff" title="Diff">diff</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Dynamic_time_warping" title="Dynamic time warping">Dynamic time warping</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Euclidean_distance" title="Euclidean distance">Euclidean distance</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Fuzzy_string_searching" title="Fuzzy string searching" class="mw-redirect">Fuzzy string searching</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Hamming_weight" title="Hamming weight">Hamming weight</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Hirschberg%27s_algorithm" title="Hirschberg's algorithm">Hirschberg's algorithm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Homology_%28biology%29#Homology_of_sequences_in_genetics" title="Homology (biology)">Homology of sequences in genetics</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Hunt%E2%80%93McIlroy_algorithm" title="Hunt–McIlroy algorithm">Hunt–McIlroy algorithm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Jaccard_index" title="Jaccard index">Jaccard index</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance" title="Jaro–Winkler distance">Jaro–Winkler distance</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Levenshtein_automaton" title="Levenshtein automaton">Levenshtein automaton</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Longest_common_subsequence_problem" title="Longest common subsequence problem">Longest common subsequence problem</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Lucene" title="Lucene">Lucene</a> (an open source search engine that implements edit distance)</li>
+<li><a href="http://en.wikipedia.org/wiki/Manhattan_distance" title="Manhattan distance" class="mw-redirect">Manhattan distance</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Metric_space" title="Metric space">Metric space</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Needleman%E2%80%93Wunsch_algorithm" title="Needleman–Wunsch algorithm">Needleman–Wunsch algorithm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Sequence_alignment" title="Sequence alignment">Sequence alignment</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Similarity_%28mathematics%29" title="Similarity (mathematics)" class="mw-redirect">Similarity (mathematics)</a></li>
+<li><a href="http://en.wikipedia.org/w/index.php?title=Similarity_space&amp;action=edit&amp;redlink=1" class="new" title="Similarity space (page does not exist)">Similarity space</a> on <a href="http://en.wikipedia.org/wiki/Numerical_taxonomy" title="Numerical taxonomy">Numerical taxonomy</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Smith%E2%80%93Waterman_algorithm" title="Smith–Waterman algorithm">Smith–Waterman algorithm</a></li>
+<li><a href="http://en.wikipedia.org/wiki/S%C3%B8rensen_similarity_index" title="Sørensen similarity index">Sørensen similarity index</a></li>
+</ul>
+</div>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=9" title="Edit section: Notes">edit</a>]</span> <span class="mw-headline" id="Notes">Notes</span></h2>
+<ol class="references">
+<li id="cite_note-0"><b><a href="#cite_ref-0">^</a></b> <span class="citation Journal">В.И. Левенштейн (1965). "Двоичные коды с исправлением выпадений, вставок и замещений символов". <i>Доклады Академий Наук СCCP</i> <b>163</b> (4): 845–8.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=%D0%94%D0%B2%D0%BE%D0%B8%D1%87%D0%BD%D1%8B%D0%B5+%D0%BA%D0%BE%D0%B4%D1%8B+%D1%81+%D0%B8%D1%81%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%D0%BC+%D0%B2%D1%8B%D0%BF%D0%B0%D0%B4%D0%B5%D0%BD%D0%B8%D0%B9%2C+%D0%B2%D1%81%D1%82%D0%B0%D0%B2%D0%BE%D0%BA+%D0%B8+%D0%B7%D0%B0%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D0%B9+%D1%81%D0%B8%D0%BC%D0%B2%D0%BE%D0%BB%D0%BE%D0%B2&amp;rft.jtitle=%D0%94%D0%BE%D0%BA%D0%BB%D0%B0%D0%B4%D1%8B+%D0%90%D0%BA%D0%B0%D0%B4%D0%B5%D0%BC%D0%B8%D0%B9+%D0%9D%D0%B0%D1%83%D0%BA+%D0%A1CCP&amp;rft.aulast=%D0%92.%D0%98.+%D0%9B%D0%B5%D0%B2%D0%B5%D0%BD%D1%88%D1%82%D0%B5%D0%B9%D0%BD&amp;rft.au=%D0%92.%D0%98.+%D0%9B%D0%B5%D0%B2%D0%B5%D0%BD%D1%88%D1%82%D0%B5%D0%B9%D0%BD&amp;rft.date=1965&amp;rft.volume=163&amp;rft.issue=4&amp;rft.pages=845%E2%80%938&amp;rfr_id=info:sid/en.wikipedia.org:Levenshtein_distance"><span style="display: none;">&nbsp;</span></span> Appeared in English as: <span class="citation Journal">Levenshtein VI (1966). "<span class="PDFlink"><a href="http://sascha.geekheim.de/wp-content/uploads/2006/04/levenshtein.pdf" class="external text" rel="nofollow">Binary codes capable of correcting deletions, insertions, and reversals</a></span><span style="font-size: smaller;">PDF</span>". <i>Soviet Physics Doklady</i> <b>10</b>: 707–10.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=%3Cspan+class%3D%22PDFlink%22%3E%5Bhttp%3A%2F%2Fsascha.geekheim.de%2Fwp-content%2Fuploads%2F2006%2F04%2Flevenshtein.pdf+Binary+codes+capable+of+correcting+deletions%2C+insertions%2C+and+reversals%5D%3C%2Fspan%3E%3Cspan+style%3D%22font-size%3Asmaller%3B%22%3EPDF%3C%2Fspan%3E&amp;rft.jtitle=Soviet+Physics+Doklady&amp;rft.aulast=Levenshtein+VI&amp;rft.au=Levenshtein+VI&amp;rft.date=1966&amp;rft.volume=10&amp;rft.pages=707%E2%80%9310&amp;rfr_id=info:sid/en.wikipedia.org:Levenshtein_distance"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-1"><b><a href="#cite_ref-1">^</a></b> <a href="http://citeseerx.ist.psu.edu/showciting;jsessionid=1A83C723CDDBB33C43D2A83F338706B7?cid=42566" class="external autonumber" rel="nofollow">[1]</a></li>
+<li id="cite_note-2"><b><a href="#cite_ref-2">^</a></b> <span class="citation book">Gusfield, Dan (1997). <i>Algorithms on strings, trees, and sequences: computer science and computational biology</i>. Cambridge, UK: Cambridge University Press. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/0-521-58519-8" title="Special:BookSources/0-521-58519-8">0-521-58519-8</a>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Algorithms+on+strings%2C+trees%2C+and+sequences%3A+computer+science+and+computational+biology&amp;rft.aulast=Gusfield%2C+Dan&amp;rft.au=Gusfield%2C+Dan&amp;rft.date=1997&amp;rft.place=Cambridge%2C+UK&amp;rft.pub=Cambridge+University+Press&amp;rft.isbn=0-521-58519-8&amp;rfr_id=info:sid/en.wikipedia.org:Levenshtein_distance"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-3"><b><a href="#cite_ref-3">^</a></b> <span class="citation Journal">Navarro G (2001). "A guided tour to approximate string matching". <i>ACM Computing Surveys</i> <b>33</b> (1): 31–88. <a href="http://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a href="http://dx.doi.org/10.1145%2F375360.375365" class="external text" rel="nofollow">10.1145/375360.375365</a>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=A+guided+tour+to+approximate+string+matching&amp;rft.jtitle=ACM+Computing+Surveys&amp;rft.aulast=Navarro+G&amp;rft.au=Navarro+G&amp;rft.date=2001&amp;rft.volume=33&amp;rft.issue=1&amp;rft.pages=31%E2%80%9388&amp;rft_id=info:doi/10.1145%2F375360.375365&amp;rfr_id=info:sid/en.wikipedia.org:Levenshtein_distance"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-4"><b><a href="#cite_ref-4">^</a></b> Bruno Woltzenlogel Paleo. <a href="http://www.logic.at/people/bruno/Papers/2007-GATE-ESSLLI.pdf" class="external text" rel="nofollow">An approximate gazetteer for GATE based on levenshtein distance</a>. Student Section of the European Summer School in Logic, Language and Information (<a href="http://en.wikipedia.org/wiki/European_Summer_School_in_Logic,_Language_and_Information" title="European Summer School in Logic, Language and Information">ESSLLI</a>), 2007.</li>
+<li id="cite_note-5"><b><a href="#cite_ref-5">^</a></b> <span class="citation Journal">Allison L (September 1992). <a href="http://www.csse.monash.edu.au/%7Elloyd/tildeStrings/Alignment/92.IPL.html" class="external text" rel="nofollow">"Lazy Dynamic-Programming can be Eager"</a>. <i>Inf. Proc. Letters</i> <b>43</b> (4): 207–12. <a href="http://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a href="http://dx.doi.org/10.1016%2F0020-0190%2892%2990202-7" class="external text" rel="nofollow">10.1016/0020-0190(92)90202-7</a><span class="printonly">. <a href="http://www.csse.monash.edu.au/%7Elloyd/tildeStrings/Alignment/92.IPL.html" class="external free" rel="nofollow">http://www.csse.monash.edu.au/~lloyd/tildeStrings/Alignment/92.IPL.html</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=Lazy+Dynamic-Programming+can+be+Eager&amp;rft.jtitle=Inf.+Proc.+Letters&amp;rft.aulast=Allison+L&amp;rft.au=Allison+L&amp;rft.date=September+1992&amp;rft.volume=43&amp;rft.issue=4&amp;rft.pages=207%E2%80%9312&amp;rft_id=info:doi/10.1016%2F0020-0190%2892%2990202-7&amp;rft_id=http%3A%2F%2Fwww.csse.monash.edu.au%2F%7Elloyd%2FtildeStrings%2FAlignment%2F92.IPL.html&amp;rfr_id=info:sid/en.wikipedia.org:Levenshtein_distance"><span style="display: none;">&nbsp;</span></span></li>
+</ol>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit&amp;section=10" title="Edit section: External links">edit</a>]</span> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul>
+<li><a href="http://www.levenshtein.net/" class="external text" rel="nofollow">A description of the Levenshtein algorithm</a></li>
+<li><a href="http://www.miislita.com/searchito/levenshtein-edit-distance.html" class="external text" rel="nofollow">Dr. E. Garcia's example of Levenshtein edit distance calculation</a></li>
+<li><a href="http://www.merriampark.com/ld.htm" class="external text" rel="nofollow">Levenshtein Distance, in Three Flavors</a></li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 3672/1000000
+Post-expand include size: 33178/2048000 bytes
+Template argument size: 10354/2048000 bytes
+Expensive parser function count: 1/500
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:406418-0!1!0!default!!en!4 and timestamp 20100414211642 -->
+<div class="printfooter">
+Retrieved from "<a href="http://en.wikipedia.org/wiki/Levenshtein_distance">http://en.wikipedia.org/wiki/Levenshtein_distance</a>"</div>
+		<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Special:Categories" title="Special:Categories">Categories</a>: <span dir="ltr"><a href="http://en.wikipedia.org/wiki/Category:Algorithms_on_strings" title="Category:Algorithms on strings">Algorithms on strings</a></span> | <span dir="ltr"><a href="http://en.wikipedia.org/wiki/Category:String_similarity_measures" title="Category:String similarity measures">String similarity measures</a></span> | <span dir="ltr"><a href="http://en.wikipedia.org/wiki/Category:Dynamic_programming" title="Category:Dynamic programming">Dynamic programming</a></span> | <span dir="ltr"><a href="http://en.wikipedia.org/wiki/Category:Articles_with_example_pseudocode" title="Category:Articles with example pseudocode">Articles with example pseudocode</a></span></div><div id="mw-hidden-catlinks" class="mw-hidden-cats-hidden">Hidden categories: <span dir="ltr"><a href="http://en.wikipedia.org/wiki/Category:Articles_needing_additional_references_from_February_2010" title="Category:Articles needing additional references from February 2010">Articles needing additional references from February 2010</a></span> | <span dir="ltr"><a href="http://en.wikipedia.org/wiki/Category:All_articles_needing_additional_references" title="Category:All articles needing additional references">All articles needing additional references</a></span></div></div>		<!-- end content -->
+				<div class="visualClear"></div>
+	</div>
+</div></div>
+<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+				 <li id="ca-nstab-main" class="selected"><a href="http://en.wikipedia.org/wiki/Levenshtein_distance" title="View the content page [alt-shift-c]" accesskey="c">Article</a></li>
+				 <li id="ca-talk"><a href="http://en.wikipedia.org/wiki/Talk:Levenshtein_distance" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></li>
+				 <li id="ca-edit"><a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=edit" title="You can edit this page. 
+Please use the preview button before saving. [alt-shift-e]" accesskey="e">Edit this page</a></li>
+				 <li id="ca-history"><a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;action=history" title="Past versions of this page [alt-shift-h]" accesskey="h">History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-optin-try"><a href="http://en.wikipedia.org/w/index.php?title=Special:UsabilityInitiativeOptIn&amp;from=Levenshtein_distance" title="Try out new features" class="no-text-transform">Try Beta</a></li>
+				<li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Levenshtein_distance" title="You are encouraged to log in; however, it is not mandatory. [alt-shift-o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(http://upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+	<div class="generated-sidebar portlet" id="p-navigation">
+		<h5>Navigation</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+				<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+				<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content — the best of Wikipedia">Featured content</a></li>
+				<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+				<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [alt-shift-x]" accesskey="x">Random article</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/w/index.php" id="searchform">
+				<input name="title" value="Special:Search" type="hidden">
+				<input autocomplete="off" id="searchInput" title="Search Wikipedia" accesskey="f" value="" name="search">
+				<input name="go" class="searchButton" id="searchGoButton" value="Go" title="Go to a page with this exact name if one exists" type="submit">&nbsp;
+				<input name="fulltext" class="searchButton" id="mw-searchButton" value="Search" title="Search Wikipedia for this text" type="submit">
+			</form>
+		</div>
+	</div>
+	<div class="generated-sidebar portlet" id="p-interaction">
+		<h5>Interaction</h5>
+		<div class="pBody">
+			<ul>
+				<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Help:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+				<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+				<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="The list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+				<li id="n-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact Wikipedia</a></li>
+				<li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Support_Wikipedia/en" title="Support us">Donate to Wikipedia</a></li>
+				<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>Toolbox</h5>
+		<div class="pBody">
+			<ul>
+				<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Levenshtein_distance" title="List of all English Wikipedia pages containing links to this page [alt-shift-j]" accesskey="j">What links here</a></li>
+				<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Levenshtein_distance" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:Upload" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="List of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+				<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;printable=yes" rel="alternate" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li>				<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Levenshtein_distance&amp;oldid=356044817" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&amp;page=Levenshtein_distance&amp;id=356044817" title="Information on how to cite this page">Cite this page</a></li>			</ul>
+		</div>
+	</div>
+	<div id="p-lang" class="portlet">
+		<h5>Languages</h5>
+		<div class="pBody">
+			<ul>
+				<li class="interwiki-af"><a href="http://af.wikipedia.org/wiki/Levenshteinafstand">Afrikaans</a></li>
+				<li class="interwiki-de"><a href="http://de.wikipedia.org/wiki/Levenshtein-Distanz">Deutsch</a></li>
+				<li class="interwiki-es"><a href="http://es.wikipedia.org/wiki/Distancia_de_Levenshtein">Español</a></li>
+				<li class="interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%D9%81%D8%A7%D8%B5%D9%84%D9%87_%D9%84%D9%88%D9%86%E2%80%8C%D8%A7%D8%B4%D8%AA%D8%A7%DB%8C%D9%86">فارسی</a></li>
+				<li class="interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Distance_de_Levenshtein">Français</a></li>
+				<li class="interwiki-it"><a href="http://it.wikipedia.org/wiki/Distanza_di_Levenshtein">Italiano</a></li>
+				<li class="interwiki-lv"><a href="http://lv.wikipedia.org/wiki/Leven%C5%A1teina_att%C4%81lums">Latviešu</a></li>
+				<li class="interwiki-nl"><a href="http://nl.wikipedia.org/wiki/Levenshteinafstand">Nederlands</a></li>
+				<li class="interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E3%83%AC%E3%83%BC%E3%83%99%E3%83%B3%E3%82%B7%E3%83%A5%E3%82%BF%E3%82%A4%E3%83%B3%E8%B7%9D%E9%9B%A2">日本語</a></li>
+				<li class="interwiki-nn"><a href="http://nn.wikipedia.org/wiki/Levenshtein-distanse">‪Norsk (nynorsk)‬</a></li>
+				<li class="interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Odleg%C5%82o%C5%9B%C4%87_Levenshteina">Polski</a></li>
+				<li class="interwiki-pt"><a href="http://pt.wikipedia.org/wiki/Dist%C3%A2ncia_Levenshtein">Português</a></li>
+				<li class="interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D1%81%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D0%B5_%D0%9B%D0%B5%D0%B2%D0%B5%D0%BD%D1%88%D1%82%D0%B5%D0%B9%D0%BD%D0%B0">Русский</a></li>
+				<li class="interwiki-sr"><a href="http://sr.wikipedia.org/wiki/%D0%9B%D0%B5%D0%B2%D0%B5%D0%BD%D1%88%D1%82%D0%B0%D1%98%D0%BD%D0%BE%D0%B2%D0%BE_%D1%80%D0%B0%D1%81%D1%82%D0%BE%D1%98%D0%B0%D1%9A%D0%B5">Српски / Srpski</a></li>
+				<li class="interwiki-fi"><a href="http://fi.wikipedia.org/wiki/Leven%C5%A1teinin_et%C3%A4isyys">Suomi</a></li>
+				<li class="interwiki-sv"><a href="http://sv.wikipedia.org/wiki/Levenshteinavst%C3%A5nd">Svenska</a></li>
+				<li class="interwiki-tg"><a href="http://tg.wikipedia.org/wiki/%D0%9C%D0%B0%D1%81%D0%BE%D1%84%D0%B0%D0%B8_%D0%9B%D0%B5%D0%B2%D0%B5%D0%BD%D1%88%D1%82%D0%B5%D0%B9%D0%BD">Тоҷикӣ</a></li>
+				<li class="interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%D0%92%D1%96%D0%B4%D1%81%D1%82%D0%B0%D0%BD%D1%8C_%D0%9B%D0%B5%D0%B2%D0%B5%D0%BD%D1%88%D1%82%D0%B5%D0%B9%D0%BD%D0%B0">Українська</a></li>
+				<li class="interwiki-vi"><a href="http://vi.wikipedia.org/wiki/Kho%E1%BA%A3ng_c%C3%A1ch_Levenshtein">Tiếng Việt</a></li>
+				<li class="interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%E7%B7%A8%E8%BC%AF%E8%B7%9D%E9%9B%A2">中文</a></li>
+			</ul>
+		</div>
+	</div>
+</div><!-- end of the left (by default at least) column -->
+<div class="visualClear"></div>
+<div id="footer">
+	<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="Levenshtein_distance_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a></div>
+	<div id="f-copyrightico"><a href="http://wikimediafoundation.org/"><img src="Levenshtein_distance_files/wikimedia-button.png" alt="Wikimedia Foundation" width="88" height="31"></a></div>
+	<ul id="f-list">
+		<li id="lastmod"> This page was last modified on 14 April 2010 at 21:16.<br></li>
+		<li id="copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display: none;"></a>;
+additional terms may apply.
+See <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> for details.<br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.<br></li><li class="noprint"><a class="internal" href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact us</a></li>
+		<li id="privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+		<li id="about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+		<li id="disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+	</ul>
+</div>
+</div>
+
+<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+<!-- Served by srv158 in 0.055 secs. --></body></html>
