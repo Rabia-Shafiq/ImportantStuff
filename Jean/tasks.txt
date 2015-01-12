@@ -1,0 +1,11 @@
+Hi,
+
+Dear Jean,
+
+Yes, Sure I would do "Advance Analysis" using 'Association rule mining','Cluster Analysis' and 'Decision Tree'.
+
+In order to understand your needs better please confirm me, Do you want me to do 'Simple Analysis' of student data-set as I mentioned in my first message attached doc "DataAnalysisOfStudents" e.g. I have to do analysis using 'frequent item-set mining using FPGrowth algorithm' too?  Or you just need me to do advance analysis as sample analysis I did in last message attached doc 'DM+Algorithms'?
+In order to make precise time-cost estimation I believe I should get all the requirements before finalizing anything.
+
+Best Regards,
+ElanceCoder
